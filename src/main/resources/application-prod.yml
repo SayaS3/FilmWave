@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/filmhub
+    username: root
+    password: bazahaslo
+  liquibase:
+    contexts: prod
+  web:
+    resources:
+      static-locations: classpath:/static/,file:/Users/lukas/uploads
+app:
+  storage:
+    location: /Users/lukas/uploads
