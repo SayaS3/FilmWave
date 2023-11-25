@@ -14,13 +14,33 @@ FilmHub is a web application built using Java Spring, Thymeleaf, and Spring Secu
 
 - **Movie Rating:** Users can rate movies and provide feedback to contribute to the community-driven movie ratings.
 
-## Technologies Used
+## Planned Features
 
-- **Java Spring:** The core framework for building the web application.
+- **Edit Movies:** Ability to edit movie details.
 
-- **Thymeleaf:** A modern server-side Java template engine for web and standalone environments.
+- **Edit Categories:** Ability to edit movie categories.
 
-- **Spring Security:** Provides authentication, authorization, and protection against common security exploits.
+- **Delete Movies:** Option to delete movies from the database.
+
+- **Delete Categories:** Option to delete movie categories.
+
+- **Comments System:** Users can comment on movies, and administrators have the ability to manage comments and apply shadow bans.
+
+- **Movie Search:** A search feature to find specific movies.
+
+- **Error Reporting:** Users can report errors in movie descriptions.
+
+- **Public User Profile:** View public profiles of users, including their rated and commented movies.
+
+- **User Administration:** Administrators can manage users and block accounts if necessary.
+
+- **Edit User Profile:** Users can edit their profile information, such as changing email addresses or passwords.
+
+- **Pagination:** Introduce pagination for better navigation, especially with a large number of movies.
+
+- **Account Activation:** Activate user accounts through email confirmation after registration.
+
+- **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
 ## Getting Started
 
