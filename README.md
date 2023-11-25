@@ -42,6 +42,10 @@ FilmHub is a web application built using Java Spring, Thymeleaf, and Spring Secu
 
 - **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
+## Language
+
+The application is in Polish.
+
 ## Getting Started
 
 To run the FilmHub application locally, follow these steps:
