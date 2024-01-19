@@ -1,22 +1,29 @@
-# FilmHub
+MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and Spring Security. This platform offers users an immersive experience to discover, register, log in, and rate movies effortlessly.
 
-FilmHub is a web application built using Java Spring, Thymeleaf, and Spring Security. It provides a platform for users to explore a list of movies, register, log in, and rate movies.
+## Key Features
 
-## Features
+- **Technology Stack:** Developed with Java Spring, Thymeleaf, and Spring Security.
+- **Profiles:** Supports both development (`dev`) and production (`prod`) profiles.
+- **Database Setup:**
+   - **Development:** Utilizes the H2 database for convenient development and testing.
+   - **Production:** Integrates with MySQL for robust and scalable data management.
+- **Data Management:** Employs Liquibase for effective database versioning and schema management.
+- **Enhanced Functionality:** Introduces movie editing functionality, allowing users to update movie details.
 
-- **Movie List:** Browse through a curated list of movies with details such as title, description, and rating.
+## Getting Started
 
-- **User Authentication:** Secure user authentication and authorization powered by Spring Security.
+1. Clone the repository: `git clone https://github.com/SayaS3/FilmHub.git`
+2. Navigate to the project directory: `cd MovieClub`
+3. Choose the appropriate profile:
+   - Development: `./mvnw spring-boot:run -Dspring.profiles.active=dev`
+   - Production: `./mvnw spring-boot:run -Dspring.profiles.active=prod`
 
-- **User Registration:** Create a new account on FilmHub to personalize your experience.
+## Database Configuration
 
-- **User Login:** Log in to your account to access personalized features.
-
-- **Movie Rating:** Users can rate movies and provide feedback to contribute to the community-driven movie ratings.
+- **Development:** The application is configured to use the H2 database for quick setup.
+- **Production:** MySQL is the recommended database for production use. Update `application-prod.yml` with your MySQL configuration.
 
 ## Planned Features
-
-- **Edit Movies:** Ability to edit movie details.
 
 - **Edit Categories:** Ability to edit movie categories.
 

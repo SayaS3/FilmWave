@@ -116,4 +116,5 @@ public class Movie {
     public void setRatings(Set<Rating> ratings) {
         this.ratings = ratings;
     }
+
 }

@@ -68,4 +68,23 @@ public class MovieService {
                 .map(MovieDtoMapper::map)
                 .toList();
     }
+
+    public void editMovie(Long id, MovieSaveDto movieChanged) {
+        Optional<Movie> optionalMovie = movieRepository.findById(id);
+        if (optionalMovie.isPresent()) {
+            Movie movie = optionalMovie.get();
+            Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre()).orElseThrow(()
+                    -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
+            movie.setTitle(movieChanged.getTitle());
+            movie.setOriginalTitle(movieChanged.getOriginalTitle());
+            movie.setShortDescription(movieChanged.getShortDescription());
+            movie.setDescription(movieChanged.getDescription());
+            movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
+            movie.setGenre(genre);
+            movie.setReleaseYear(movieChanged.getReleaseYear());
+            movieRepository.save(movie);
+        } else {
+            throw new RuntimeException("Movie not found with id: " + id);
+        }
+    }
 }
