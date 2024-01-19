@@ -23,7 +23,7 @@ public class MovieManagementController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/admin/dodaj-film")
+    @GetMapping("/admin/add-movie")
     public String addMovieForm(Model model) {
         List<GenreDto> allGenres = genreService.findAllGenres();
         model.addAttribute("genres", allGenres);
@@ -32,12 +32,12 @@ public class MovieManagementController {
         return "admin/movie-form";
     }
 
-    @PostMapping("/admin/dodaj-film")
+    @PostMapping("/admin/add-movie")
     public String addMovie(MovieSaveDto movie, RedirectAttributes redirectAttributes) {
         movieService.addMovie(movie);
         redirectAttributes.addFlashAttribute(
                 AdminController.NOTIFICATION_ATTRIBUTE,
-                "Film %s został zapisany".formatted(movie.getTitle()));
+                "Movie %s has been saved.".formatted(movie.getTitle()));
         return "redirect:/admin";
     }
 }

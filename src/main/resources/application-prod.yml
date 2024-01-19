@@ -1,6 +1,9 @@
 spring:
+  h2:
+    console:
+      enabled: false
   datasource:
-    url: jdbc:mysql://localhost:3306/filmhub
+    url: jdbc:mysql://localhost:3306/movieHu?createDatabaseIfNotExist=true
     username: root
     password: bazahaslo
   liquibase:

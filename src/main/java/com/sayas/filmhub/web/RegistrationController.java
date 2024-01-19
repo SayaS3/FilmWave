@@ -16,14 +16,14 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @GetMapping("/rejestracja")
+    @GetMapping("/registration")
     public String registrationForm(Model model) {
         UserRegistrationDto userRegistration = new UserRegistrationDto();
         model.addAttribute("user", userRegistration);
         return "registration-form";
     }
 
-    @PostMapping("/rejestracja")
+    @PostMapping("/registration")
     public String register(UserRegistrationDto userRegistration) {
         userService.registerUserWithDefaultRole(userRegistration);
         return "redirect:/";

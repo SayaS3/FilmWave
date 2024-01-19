@@ -24,7 +24,7 @@ public class MovieController {
         this.ratingService = ratingService;
     }
 
-    @GetMapping("/film/{id}")
+    @GetMapping("/movie/{id}")
     public String getMovie(@PathVariable long id,
                            Model model,
                            Authentication authentication) {
@@ -44,8 +44,8 @@ public class MovieController {
     @GetMapping("/top10")
     public String findTop10(Model model) {
         List<MovieDto> top10Movies = movieService.findTopMovies(10);
-        model.addAttribute("heading", "Filmowe TOP10");
-        model.addAttribute("description", "Filmy najlepiej oceniane przez użytkowników");
+        model.addAttribute("heading", "Top 10 Movies");
+        model.addAttribute("description", "Movies highly rated by users");
         model.addAttribute("movies", top10Movies);
         return "movie-listing";
     }

@@ -6,85 +6,85 @@
       layout:decorate="~{layout}">
 <head>
     <!-- Ustawiamy tytuł -->
-    <title th:text="|${movie.title} - MovieClub|">Tytuł filmu - MovieClub</title>
+    <title th:text="|${movie.title} - MovieClub|">Title of the Movie - MovieClub</title>
 </head>
 <body>
 <div class="container">
     <main class="main-content" layout:fragment="content">
         <section class="movie">
-            <!-- Podsumowanie -->
+            <!-- Summary -->
             <div class="movie-summary">
-                <!-- Ustawiamy adres i opis plakatu -->
+                <!-- Set poster address and description -->
                 <img src="../static/img/poster-placeholder.png"
                      th:src="${movie.poster ne null} ? @{|/img/${movie.poster}|} : @{/img/poster-placeholder.png}"
-                     alt="tytuł filmu"
+                     alt="movie title"
                      th:alt="${movie.title}"
                      class="movie-summary-cover"
                 />
-                <!-- informacje o filmie -->
+                <!-- Movie information -->
                 <div class="movie-summary-info">
-                    <!-- Ustawiamy tytuły, krótki opis, rok -->
-                    <h1 class="movie-summary-title" th:text="${movie.title}">Władca pierścieni</h1>
-                    <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the rings</p>
-                    <p class="movie-summary-item" th:text="|Rok: ${movie.releaseYear}|">Rok: 2001</p>
-                    <!-- Ustawiamy link do strony gatunku filmowego, np. /gatunek/fantasy -->
-                    <p class="movie-summary-item">Gatunek: <a href="#"
-                                                              th:href="@{|/gatunek/${movie.genre}|}"
-                                                              th:text="${movie.genre}">Fantasy</a>
+                    <!-- Set titles, short description, year -->
+                    <h1 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h1>
+                    <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the Rings</p>
+                    <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
+                    <!-- Set link to the genre page, e.g., /genre/fantasy -->
+                    <p class="movie-summary-item">Genre: <a href="#"
+                                                            th:href="@{|/genre/${movie.genre}|}"
+                                                            th:text="${movie.genre}">Fantasy</a>
                     </p>
                     <p class="movie-summary-item" th:text="${movie.shortDescription}">
-                        Podróż odważnego hobbita i jego towarzyszy w poszukiwaniu pierścienia.
+                        The journey of a brave hobbit and his companions in search of the ring.
                     </p>
                 </div>
             </div>
-            <!-- Ocena -->
+            <!-- Rating -->
             <div class="movie-rating-container movie-section">
-                <h2 class="movie-section-heading">Ocena</h2>
-                <!-- Jeżeli nie oddano żadnego głosu -->
-                <p th:unless="${movie.ratingCount}">Brak głosów</p>
-                <!-- Jeżeli oddano głos -->
+                <h2 class="movie-section-heading">Rating</h2>
+                <!-- If no votes have been cast -->
+                <p th:unless="${movie.ratingCount}">No votes</p>
+                <!-- If votes have been cast -->
                 <div th:if="${movie.ratingCount}">
-                    <!-- Zaokrąglamy ocenę do 1 miejsca przed i po przecinku -->
+                    <!-- Round the rating to 1 decimal place -->
                     <p class="movie-rating-value" th:text="${#numbers.formatDecimal(movie.avgRating, 1, 1)}">4.0</p>
-                    <p th:text="|Liczba ocen: ${movie.ratingCount}|">Liczba ocen: 134</p>
+                    <p th:text="|Number of votes: ${movie.ratingCount}|">Number of votes: 134</p>
                 </div>
-                <!-- Dodajemy th:action, formularz wyświetlamy tylko zalogowanemu użytkownikowi -->
-                <form action="#" th:action="@{/ocen-film}" method="post"
+                <!-- Add th:action, display form only to logged-in users -->
+                <form action="#" th:action="@{/rate-movie}" method="post"
                       sec:authorize="isAuthenticated()"
                       class="movie-rating-form">
-                    <!-- Identyfikator filmu, na który głosujemy-->
-                    <p>Twoja ocena</p>
+                    <!-- Movie ID for which we are voting -->
+                    <p>Your rating</p>
                     <input type="hidden" name="movieId" th:value="${movie.id}">
                     <div class="movie-rating-buttons">
-                        <!-- Generujemy 5 gwiazdek w pętli -->
+                        <!-- Generate 5 stars in a loop -->
                         <button class="movie-rating-button"
                                 name="rating"
                                 th:each="i: ${#numbers.sequence(1, 5)}"
                                 th:value="${i}">
-                            <!-- Pełną i pustą gwiazdkę rozróżniamy dodając odpowiednią klasę na podstawie głosu użytkownika -->
+                            <!-- Distinguish full and empty stars by adding the appropriate class based on user vote -->
                             <i class="fa-star" th:classappend="${i <= userRating ? 'fa-solid' : 'fa-regular'}"></i>
                         </button>
                     </div>
                 </form>
-                <!-- Link do logowania wyświetlamy tylko wtedy, gdy użytkownik nie jest zalogowany -->
+                <!-- Display login link only when the user is not logged in -->
                 <p sec:authorize="!isAuthenticated()">
-                    <a href="#" th:href="@{/login}">Zaloguj się</a>, aby oddać głos
+                    <a href="#" th:href="@{/login}">Log in</a> to vote
                 </p>
             </div>
         </section>
-        <!-- trailer -->
+        <!-- Trailer -->
         <section class="movie-trailer-container movie-section">
             <h2 class="movie-section-heading">Trailer</h2>
-            <!-- Ustawiamy url filmu z trailerem -->
+            <!-- Set the movie trailer URL -->
             <iframe width="560" height="315" class="movie-trailer"
                     src="https://www.youtube.com/embed/V75dMMIW2B4"
                     th:src="|https://www.youtube.com/embed/${movie.youtubeTrailerId}|"
                     frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </section>
-        <!-- opis -->
+        <!-- Description -->
         <section class="movie-section">
-            <h2 class="movie-section-heading">Opis</h2>
-            <!-- Ustawiamy pełny opis -->
+            <h2 class="movie-section-heading">Description</h2>
+            <!-- Set the full description -->
             <p th:text="${movie.description}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
                 Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
                 Donec lacinia congue felis in faucibus.</p>

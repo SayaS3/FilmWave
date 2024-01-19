@@ -16,19 +16,19 @@ public class GenreManagementController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/admin/dodaj-gatunek")
+    @GetMapping("/admin/add-genre")
     public String addGenreForm(Model model) {
         GenreDto genre = new GenreDto();
         model.addAttribute("genre", genre);
         return "admin/genre-form";
     }
 
-    @PostMapping("/admin/dodaj-gatunek")
+    @PostMapping("/admin/add-genre")
     public String addGenre(GenreDto genre, RedirectAttributes redirectAttributes) {
         genreService.addGenre(genre);
         redirectAttributes.addFlashAttribute(
                 AdminController.NOTIFICATION_ATTRIBUTE,
-                "Gatunek %s został zapisany".formatted(genre.getName()));
+                "Genre %s has been saved.\n".formatted(genre.getName()));
         return "redirect:/admin";
     }
 }

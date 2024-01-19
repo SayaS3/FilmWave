@@ -4,17 +4,18 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <title>Dodaj nowy gatunek filmowy</title>
+  <title>Add a new genre</title>
 </head>
 <body>
 <main class="main-content" layout:fragment="content">
-  <h2 class="list-heading">Dodaj nowy gatunek filmowy</h2>
-  <form action="#" th:action="@{/admin/dodaj-gatunek}" method="post" class="mc-form" th:object="${genre}">
-    <label for="genreName">Nazwa</label>
+  <h2 class="list-heading">Add a new genre</h2>
+  <form action="#" th:action="@{/admin/add-genre}" method="post" class="mc-form" th:object="${genre}">
+    <label for="genreName">Name</label>
     <input type="text" id="genreName" placeholder="np. Horror" th:field="*{name}">
-    <label for="movieShortDescription">Opis - max 500 znaków</label>
+    <label for="movieShortDescription">
+      Description - max 500 characters</label>
     <textarea id="movieShortDescription" rows="5" th:field="*{description}"></textarea>
-    <button type="submit">Dodaj</button>
+    <button type="submit">Add</button>
   </form>
 </main>
 </body>

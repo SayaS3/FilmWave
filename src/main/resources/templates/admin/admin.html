@@ -5,17 +5,17 @@
       layout:decorate="~{layout}">
 <head>
   <meta charset="UTF-8">
-  <title>Panel administracyjny</title>
+  <title>Admin Panel</title>
 </head>
 <body>
 <main class="main-content" layout:fragment="content">
   <p class="notification-bar" th:if="${notification}" th:text="${notification}">
-    Belka z powiadomieniami
+    Notifications
   </p>
-  <h2 class="list-heading">Panel administracyjny</h2>
+  <h2 class="list-heading">Admin Panel</h2>
   <ul class="list-border">
-    <li><a href="#" th:href="@{/admin/dodaj-film}">Dodaj film</a></li>
-    <li><a href="#" th:href="@{/admin/dodaj-gatunek}">Dodaj gatunek</a></li>
+    <li><a href="#" th:href="@{/admin/add-movie}">Add movie</a></li>
+    <li><a href="#" th:href="@{/admin/add-genre}">Add genre</a></li>
   </ul>
 </main>
 </body>

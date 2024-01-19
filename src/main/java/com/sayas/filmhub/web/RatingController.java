@@ -14,7 +14,7 @@ public class RatingController {
         this.ratingService = ratingService;
     }
 
-    @PostMapping("/ocen-film")
+    @PostMapping("/rate-movie")
     public String addMovieRating(@RequestParam long movieId,
                                  @RequestParam int rating,
                                  @RequestHeader String referer,

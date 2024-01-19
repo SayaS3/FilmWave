@@ -24,7 +24,7 @@ public class GenreController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/gatunek/{name}")
+    @GetMapping("/genre/{name}")
     public String getGenre(@PathVariable String name, Model model) {
         GenreDto genre = genreService.findGenreByName(name)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -35,7 +35,7 @@ public class GenreController {
         return "movie-listing";
     }
 
-    @GetMapping("/gatunki-filmowe")
+    @GetMapping("/genres")
     public String getGenreList(Model model) {
         List<GenreDto> genres = genreService.findAllGenres();
         model.addAttribute("genres", genres);

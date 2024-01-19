@@ -20,8 +20,8 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         List<MovieDto> promotedMovies = movieService.findAllPromotedMovies();
-        model.addAttribute("heading", "Promowane filmy");
-        model.addAttribute("description", "Filmy polecane przez nasz zespół");
+        model.addAttribute("heading", "Featured Movies");
+        model.addAttribute("description", "Movies recommended by our team");
         model.addAttribute("movies", promotedMovies);
         return "movie-listing";
     }
