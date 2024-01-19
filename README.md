@@ -25,8 +25,6 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 
 ## Planned Features
 
-- **Edit Categories:** Ability to edit movie categories.
-
 - **Delete Movies:** Option to delete movies from the database.
 
 - **Delete Categories:** Option to delete movie categories.
