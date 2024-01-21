@@ -3,7 +3,7 @@
 <html lang="pl"
       xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <div class="container">
   <main class="main-content" layout:fragment="content">
@@ -23,11 +23,24 @@
                alt="movie title"
                class="movie-list-item-poster">
         </a>
+        <div class="movie-list-item-edit-and-delete">
+          <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}"
+             th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+
+          <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')"
+             th:href="@{|/admin/delete-movie/${movie.id}|}"
+             onclick="return confirm('Are you sure you want to delete this genre?');">
+            Delete
+          </a>
+        </div>
         <div class="movie-list-item-card">
+
+
           <div class="movie-list-item-content">
             <h3 class="movie-list-item-title">
-              <!-- Link to the individual movie page like /film/5 -->
+
               <a href="#" th:href="@{|/movie/${movie.id}|}" th:text="${movie.title}">Movie Title</a>
+
             </h3>
             <!-- Movie title in English -->
             <h4 th:text="${movie.originalTitle}">English Movie Title</h4>
@@ -39,6 +52,8 @@
             <!-- Round the rating to 1 decimal place -->
             <span th:if="${movie.ratingCount}" th:text="${#numbers.formatDecimal(movie.avgRating, 1, 1)}">8.7</span>
             <span th:if="!${movie.ratingCount}">No ratings</span>
+
+
           </div>
         </div>
       </li>

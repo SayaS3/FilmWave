@@ -7,6 +7,7 @@ import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,6 @@ public class MovieManagementController {
     }
     @GetMapping("/admin/edit-movie/{id}")
     public String editMovieForm(@PathVariable Long id, Model model) {
-        // Pobierz istniejący film na podstawie ID
         Optional<MovieDto> movieOptional = movieService.findMovieById(id);
 
         if (movieOptional.isPresent()) {
@@ -66,5 +66,13 @@ public class MovieManagementController {
                 AdminController.NOTIFICATION_ATTRIBUTE,
                 "Movie %s has been updated.".formatted(movie.getTitle()));
         return "redirect:/movie/{id}";
+    }
+    @GetMapping("/admin/delete-movie/{id}")
+    public String deleteMovie(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        movieService.deleteMovie(id);
+        redirectAttributes.addFlashAttribute(
+                AdminController.NOTIFICATION_ATTRIBUTE,
+                "Movie has been deleted.");
+        return "redirect:/";
     }
 }

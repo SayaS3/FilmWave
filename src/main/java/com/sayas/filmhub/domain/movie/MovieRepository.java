@@ -1,5 +1,6 @@
 package com.sayas.filmhub.domain.movie;
 
+import com.sayas.filmhub.domain.genre.Genre;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,5 +16,6 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     @Query("select m from Movie m join m.ratings r group by m order by avg(r.rating) desc")
     List<Movie> findTopByRating(Pageable page);
+    List<Movie> findAllByGenre(Genre genre);
 }
 

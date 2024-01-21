@@ -1,7 +1,5 @@
 package com.sayas.filmhub.domain.rating;
 
-
-
 import com.sayas.filmhub.domain.movie.Movie;
 import com.sayas.filmhub.domain.user.User;
 import jakarta.persistence.*;

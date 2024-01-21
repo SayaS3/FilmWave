@@ -10,6 +10,12 @@ class MovieDtoMapper {
                 .mapToDouble(val -> val)
                 .average().orElse(0);
         int ratingCount = movie.getRatings().size();
+
+        String genreName = "";
+        if (movie.getGenre() != null) {
+            genreName = movie.getGenre().getName();
+        }
+
         return new MovieDto(
                 movie.getId(),
                 movie.getTitle(),
@@ -18,7 +24,7 @@ class MovieDtoMapper {
                 movie.getDescription(),
                 movie.getYoutubeTrailerId(),
                 movie.getReleaseYear(),
-                movie.getGenre().getName(),
+                genreName,
                 movie.isPromoted(),
                 movie.getPoster(),
                 avgRating,

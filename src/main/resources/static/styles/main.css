@@ -1,4 +1,7 @@
 /*CSS reset*/
+:root {
+    --orange: #ff7907;
+}
 * {
     margin: 0;
     padding: 0;
@@ -82,6 +85,7 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 /*Margines i ramka wokół pojedynczego filmu*/
 .movie-list-item {
+    position: relative;
     margin-bottom: 16px;
     display: flex;
     border: 1px #6d6d6d solid;
@@ -94,6 +98,7 @@ i powinna zajmować większość dostępnej przestrzeni
 /*Karta filmu*/
 .movie-list-item-card {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
     padding: 16px;
@@ -101,12 +106,34 @@ i powinna zajmować większość dostępnej przestrzeni
 .movie-list-item-content > * {
     margin: 8px 0;
 }
-.movie-list-item-title {
+.movie-list-item-title{
+    display: flex;
     font-size: 1.6rem;
+}
+.movie-list-item-title > a:hover{
+    color: var(--orange);
+    transition: 0.3s;
+}
+.movie-list-item-edit-and-delete {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    right: 15px;
+    top: 25px;
+}
+.movie-list-item-edit-and-delete a {
+    font-size: 1.3rem;
+}
+.movie-list-item-edit-and-delete a:hover {
+    color: var(--orange);
+    transition: 0.3s;
 }
 .movie-list-item-rating {
     font-size: 1.6rem;
 }
+
 /*Listing END*/
 /*Jumbotron START*/
 .jumbotron {
@@ -223,10 +250,28 @@ i powinna zajmować większość dostępnej przestrzeni
                        list-style: none;
                    }
 .list-border > li {
-    font-size: 1.2rem;
+    position: relative;
+    font-size: 1.3rem;
     border: 1px #6d6d6d solid;
     padding: 16px;
     text-align: center;
+}
+.list-border > li > a:hover{
+    color: var(--orange);
+    transition: 0.3s;
+}
+.list-genres-options {
+    position: absolute;
+    display: flex;
+    gap: 8px;
+    font-size: 1.2rem;
+    right: 15px;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically */
+}
+.list-genres-options a:hover{
+   color: var(--orange);
+    transition: 0.3s;
 }
 /*Movie.html END*/
 /*textarea domyślnie nie dziedziczy czcionki z body*/

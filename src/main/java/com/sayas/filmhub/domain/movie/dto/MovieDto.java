@@ -1,5 +1,7 @@
 package com.sayas.filmhub.domain.movie.dto;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+
 public class MovieDto {
     private Long id;
     private String title;
@@ -9,7 +11,8 @@ public class MovieDto {
     private String youtubeTrailerId;
     private Integer releaseYear;
     private String genre;
-    private boolean promoted;
+    @NotNull
+    private Boolean promoted = false;
     private String poster;
     private double avgRating;
     private int ratingCount;

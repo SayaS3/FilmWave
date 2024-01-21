@@ -2,10 +2,17 @@
 <html lang="pl"
       xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Movie genres - MovieClub</title>
 </head>
+<script>
+    function confirmAndSubmit() {
+        if (confirm('Are you sure you want to delete this genre?')) {
+            document.querySelector('form').submit();
+        }
+    }
+</script>
 <body>
 <main class="main-content" layout:fragment="content">
     <h2 class="list-heading">Movie genres</h2>
@@ -18,8 +25,21 @@
                th:text="${genre.name}">
                 Horror
             </a>
+            <div class="list-genres-options" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')">
+                <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')"
+                   th:href="@{|/admin/edit-genre/${genre.id}|}">Edit</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')"
+                   th:href="@{|/admin/delete-genre/${genre.id}|}"
+                   onclick="return confirm('Are you sure you want to delete this genre?');">
+                    Delete
+                </a>
+
+            </div>
         </li>
+
     </ul>
+
 </main>
+
 </body>
 </html>
