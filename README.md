@@ -25,8 +25,6 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 
 ## Planned Features
 
-- **Delete Movies:** Option to delete movies from the database.
-
 - **Comments System:** Users can comment on movies, and administrators have the ability to manage comments and apply shadow bans.
 
 - **Movie Search:** A search feature to find specific movies.
