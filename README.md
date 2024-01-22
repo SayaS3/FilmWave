@@ -43,9 +43,6 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 
 - **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
-## Language
-
-The application is in Polish.
 
 ## Getting Started
 
