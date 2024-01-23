@@ -1,8 +1,8 @@
 package com.sayas.filmhub.domain.movie;
 
+import com.sayas.filmhub.domain.comment.CommentRepository;
 import com.sayas.filmhub.domain.genre.Genre;
 import com.sayas.filmhub.domain.genre.GenreRepository;
-import com.sayas.filmhub.domain.genre.dto.GenreDto;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import com.sayas.filmhub.storage.FileStorageService;
@@ -10,10 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +20,16 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
+    private final CommentRepository commentRepository;
     private final FileStorageService fileStorageService;
 
-    public MovieService(MovieRepository movieRepository,
-                        GenreRepository genreRepository,
-                        FileStorageService fileStorageService) {
+    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, CommentRepository commentRepository, FileStorageService fileStorageService) {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
+        this.commentRepository = commentRepository;
         this.fileStorageService = fileStorageService;
     }
+
 
     public List<MovieDto> findAllPromotedMovies() {
         return movieRepository.findAllByPromotedIsTrue().stream()
@@ -99,11 +97,18 @@ public class MovieService {
         }
     }
 
+
     @Transactional
     public void deleteMovie(Long id) {
         Optional<Movie> movieToDelete = movieRepository.findById(id);
+
         if (movieToDelete.isPresent()) {
             Movie movie = movieToDelete.get();
+
+            // Delete associated comments
+            commentRepository.deleteByMovie(movie);
+
+            // Delete the movie
             movieRepository.delete(movie);
         }
     }

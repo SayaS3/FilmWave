@@ -29,7 +29,7 @@
 
           <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')"
              th:href="@{|/admin/delete-movie/${movie.id}|}"
-             onclick="return confirm('Are you sure you want to delete this genre?');">
+             onclick="return confirm('Are you sure you want to delete this movie?');">
             Delete
           </a>
         </div>

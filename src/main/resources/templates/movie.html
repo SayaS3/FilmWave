@@ -92,6 +92,31 @@
                 Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
                 Donec lacinia congue felis in faucibus.</p>
         </section>
+        <section class="movie-section">
+            <h2 class="movie-section-heading">Comments</h2>
+            <p class="movie-section-login" th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a href="/login">Log in</a> to add comments.
+            </p>
+            <form action="/add-comment" method="post" th:if="${#authorization.expression('isAuthenticated()')}" class="comment-form">
+                <textarea name="content" rows="4" placeholder="Add a comment" class="comment-textarea" maxlength="255"></textarea>
+                <input type="hidden" name="movieId" th:value="${movie.id}" />
+                <button type="submit" class="comment-submit-btn">Submit</button>
+            </form>
+
+            <!-- Display comments if available -->
+            <div th:if="${#lists.size(comments) > 0}">
+                <div th:each="comment : ${comments}" class="comment">
+                    <div class="movie-comment">
+                        <div class="comment-user" th:text="${comment.username}">Username</div>
+                        <div class="comment-user-content" th:text="${comment.content}">Comment content</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Display message if no comments available -->
+            <p th:unless="${#lists.size(comments) > 0}">No comments yet.</p>
+
+
+        </section>
     </main>
 </div>
 </body>

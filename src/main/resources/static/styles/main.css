@@ -1,6 +1,6 @@
 /*CSS reset*/
 :root {
-    --orange: #ff7907;
+    --orange: rgb(255, 205, 0);
 }
 * {
     margin: 0;
@@ -14,7 +14,7 @@ body {
 /*Ustawienie koloru odnośników i usunięcie podkreśleń*/
 a {
     text-decoration: none;
-    color: #ffc107;
+    color: var(--orange);
 }
 /*Kolor tła w głównym kontenerze i ustawienie elastycznego rozkładu
 Elementy będą ustawiane jeden pod drugim
@@ -36,7 +36,7 @@ i powinna zajmować większość dostępnej przestrzeni
 /*Kolor logotypu i przycisku rozwijającego menu*/
 .logo,
 #toggle-icon {
-    color: #ffc107;
+    color: var(--orange);
 }
 /*Ustawienia dla responsywnego menu*/
 .menu {
@@ -134,6 +134,7 @@ i powinna zajmować większość dostępnej przestrzeni
     font-size: 1.6rem;
 }
 
+
 /*Listing END*/
 /*Jumbotron START*/
 .jumbotron {
@@ -179,6 +180,33 @@ i powinna zajmować większość dostępnej przestrzeni
 .movie-summary-title {
     font-size: 2rem;
 }
+.comment-form {
+    margin-bottom: 20px;
+}
+
+.comment-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    padding: 10px;
+    color: black; /* Stosuje stały kolor do tekstu */
+}
+.comment-user {
+    margin-top: 0.5rem;
+    color: var(--orange);
+    font-size: 1.25rem;
+}
+.comment-user-content {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+}
+.comment-submit-btn {
+    padding: 10px;
+    background-color: var(--orange); /* Stosuje stały kolor do tła przycisku */
+    color: white; /* Ustawia kolor tekstu na biały */
+    border: none;
+    cursor: pointer;
+}
 /*Wyśrodkowanie głosowania*/
 .movie-rating-container {
     display: flex;
@@ -201,7 +229,7 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 /*Styl dla przycisków z ocenami*/
 .movie-rating-button {
-    background-color: #ffc107;
+    background-color: var(--orange);
     border: 0;
     padding: 4px;
     font-size: 1.6rem;
@@ -299,7 +327,7 @@ textarea {
 .mc-form > button {
     margin-top: 16px;
     background-color: white;
-    color: #ffc107;
+    color: var(--orange);
     border: none;
 }
 /*Responsive*/
@@ -322,7 +350,7 @@ textarea {
     }
     .notification-bar {
          text-align: center;
-         background-color: #ffc107;
+         background-color: var(--orange);
          padding: 8px 0;
      }
 
@@ -352,7 +380,7 @@ textarea {
 }
 /*Tekst nad formularzem*/
 .mc-form-message {
-    color: #ffc107;
+    color: var(--orange);
     text-align: center;
 }
 /*Biały kolor tekstu przy wyborze pliku*/

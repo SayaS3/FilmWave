@@ -113,8 +113,5 @@ public class Movie {
         return ratings;
     }
 
-    public void setRatings(Set<Rating> ratings) {
-        this.ratings = ratings;
-    }
 
 }

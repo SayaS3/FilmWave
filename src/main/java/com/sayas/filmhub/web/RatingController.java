@@ -1,6 +1,7 @@
 package com.sayas.filmhub.web;
 
 import com.sayas.filmhub.domain.rating.RatingService;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,9 +19,9 @@ public class RatingController {
     public String addMovieRating(@RequestParam long movieId,
                                  @RequestParam int rating,
                                  @RequestHeader String referer,
-                                 Authentication authentication) {
-        String currentUserEmail = authentication.getName();
-        ratingService.addOrUpdateRating(currentUserEmail, movieId, rating);
+                                 Authentication authentication) throws NotFoundException {
+        String currentUserName = authentication.getName();
+        ratingService.addOrUpdateRating(currentUserName, movieId, rating);
         return "redirect:" + referer;
     }
 }

@@ -30,7 +30,8 @@ public class CustomSecurityConfig {
         http.
                 authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(mvc.pattern("/admin/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
-                        .requestMatchers(mvc.pattern("/ocen-film")).authenticated()
+                        .requestMatchers(mvc.pattern("/rate-movie")).authenticated()
+                        .requestMatchers(mvc.pattern("/add-comment")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(toH2Console()).hasAnyRole(ADMIN_ROLE)
                         .anyRequest().permitAll()
                 )
@@ -43,7 +44,9 @@ public class CustomSecurityConfig {
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout/**", HttpMethod.GET.name()))
                         .logoutSuccessUrl("/login?logout").permitAll()
                 )
-                .csrf(csrf -> csrf .ignoringRequestMatchers(toH2Console()));
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(toH2Console())
+                        .ignoringRequestMatchers("/add-comment"));
         return http.build();
 
     }

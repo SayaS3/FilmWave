@@ -13,6 +13,9 @@
                 <constraints unique="true"/>
             </column>
             <column name="password" type="VARCHAR(200)"/>
+            <column name="userName" type="VARCHAR(10)">
+                <constraints unique="true"/>
+            </column>
         </createTable>
 
         <createTable tableName="user_role">

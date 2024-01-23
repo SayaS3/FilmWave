@@ -30,9 +30,9 @@
         <label for="trailerId">Youtube trailer ID</label>
         <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}" th:value="${movie.youtubeTrailerId}">
         <label for="shortDescription">Short description - max 200 characters</label>
-        <textarea id="shortDescription" rows="5" th:field="*{shortDescription}" th:text="${movie.shortDescription}"></textarea>
+        <textarea id="shortDescription" rows="5" th:field="*{shortDescription}" th:text="${movie.shortDescription}" maxlength="200"></textarea>
         <label for="description">Full description</label>
-        <textarea id="description" rows="10" th:field="*{description}" th:text="${movie.description}"></textarea>
+        <textarea id="description" rows="10" th:field="*{description}" th:text="${movie.description}" maxlength="10000"></textarea>
         <button type="submit">Edit</button>
     </form>
 </main>

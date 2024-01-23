@@ -1,0 +1,16 @@
+INSERT INTO comments (user_id, movie_id, content) VALUES
+                                                      (1, 1, 'Great movie!'),
+                                                      (3, 2, 'Awesome cinematography.'),
+                                                      (2, 3, 'Interesting plot.'),
+                                                      (1, 1, 'I love the characters.'),
+                                                      (3, 2, 'The soundtrack is amazing.'),
+                                                      (2, 3, 'Can''t wait for the sequel.'),
+                                                      (1, 4, 'A classic film.'),
+                                                      (3, 5, 'Suspenseful till the end.'),
+                                                      (2, 6, 'Heartwarming story.'),
+                                                      (1, 7, 'Mind-blowing twists.'),
+                                                      (3, 8, 'The acting is superb.'),
+                                                      (2, 9, 'Absolutely stunning visuals.'),
+                                                      (1, 10, 'An emotional rollercoaster.'),
+                                                      (3, 11, 'Must-watch for everyone.'),
+                                                      (2, 12, 'Captivating from start to finish.');

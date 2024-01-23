@@ -1,6 +1,5 @@
 package com.sayas.filmhub.domain.genre;
 
-import com.sayas.filmhub.domain.genre.Genre;
 import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 

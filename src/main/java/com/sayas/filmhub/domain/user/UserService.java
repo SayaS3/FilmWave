@@ -36,7 +36,13 @@ public class UserService {
         User user = new User();
         user.setEmail(userRegistration.getEmail());
         user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
+        user.setUsername(userRegistration.getUsername());
         user.getRoles().add(defaultRole);
         userRepository.save(user);
+    }
+
+    public Optional<UserCredentialsDto> getuserNameById(Long userId) {
+        return userRepository.findById(userId)
+                .map(UserCredentialsDtoMapper::map);
     }
 }
