@@ -23,8 +23,8 @@
                alt="movie title"
                class="movie-list-item-poster">
         </a>
-        <div class="movie-list-item-edit-and-delete">
-          <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}"
+        <div class="movie-list-item-edit-and-delete" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
+          <a
              th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
 
           <form th:action="@{|/admin/delete-movie/${movie.id}|}" th:method="delete">
