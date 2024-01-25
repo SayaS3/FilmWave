@@ -23,9 +23,16 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 - **Development:** The application is configured to use the H2 database for quick setup.
 - **Production:** MySQL is the recommended database for production use. Update `application-prod.yml` with your MySQL configuration.
 
+## Existing Features
+
+- **Movie Rating:** Users can rate movies based on their experience.
+- **Display Movies and Genres:** Users can view a list of movies and genres.
+- **Admin Panel:** Admins can manage genres and movies, including addition, editing, and deletion.
+- **Comments:** Logged-in users can post comments on movies.
+
 ## Planned Features
 
-- **Comments System:** Users can comment on movies, and administrators have the ability to manage comments and apply shadow bans.
+- **Comments System:** administrators have the ability to manage comments and apply shadow bans.
 
 - **Movie Search:** A search feature to find specific movies.
 
