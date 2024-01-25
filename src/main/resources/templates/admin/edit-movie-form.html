@@ -9,7 +9,7 @@
 <body>
 <main class="main-content" layout:fragment="content">
     <h2 class="list-heading">Edit Movie</h2>
-    <form action="#" th:action="@{|/admin/edit-movie/${movie.id}|}" method="post" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
+    <form action="#" th:action="@{|/admin/edit-movie/${movie.id}|}" th:method="put" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
         <input type="hidden" id="id" th:field="*{id}" th:value="${movie.id}">
         <!-- other fields... -->
         <label for="title">Title</label>
@@ -19,7 +19,7 @@
         <label for="releaseYear">Year of release</label>
         <input type="number" id="releaseYear" placeholder="2019" th:field="*{releaseYear}" th:value="${movie.releaseYear}">
         <label for="genre">Genre</label>
-        <select id="genre" th:field="*{genre}" required>
+        <select class="selection" id="genre" th:field="*{genre}" required>
             <option value="" hidden>Choose a genre</option>
             <option th:each="genre: ${genres}" th:value="${genre.name}" th:text="${genre.name}" th:selected="${genre.name == movie.genre}"></option>
         </select>

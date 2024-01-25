@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,5 +42,14 @@ public class CommentService {
         comment.setMovie(movie);
         comment.setContent(content);
         commentRepository.save(comment);
+    }
+    @Transactional
+    public void deleteComment(Long id) throws NotFoundException {
+        Optional<Comment> comment = commentRepository.findById(id);
+        if (comment.isPresent()) {
+            commentRepository.delete(comment.get());
+        } else {
+            throw new NotFoundException("Comment not found for user, movie, and content combination.");
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -30,6 +31,7 @@ public class CustomSecurityConfig {
         http.
                 authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(mvc.pattern("/admin/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
+                        .requestMatchers(mvc.pattern("/delete-comment/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
                         .requestMatchers(mvc.pattern("/rate-movie")).authenticated()
                         .requestMatchers(mvc.pattern("/add-comment")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(toH2Console()).hasAnyRole(ADMIN_ROLE)
@@ -45,9 +47,14 @@ public class CustomSecurityConfig {
                         .logoutSuccessUrl("/login?logout").permitAll()
                 )
                 .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .ignoringRequestMatchers(toH2Console())
+                        .ignoringRequestMatchers("/delete-comment")
                         .ignoringRequestMatchers("/add-comment"));
+
+
         return http.build();
+
 
     }
 

@@ -196,6 +196,13 @@ i powinna zajmować większość dostępnej przestrzeni
     color: var(--orange);
     font-size: 1.25rem;
 }
+.comment-heading{
+    display: flex;
+    justify-content: space-between;
+}
+.delete-comment {
+    margin-top: 0.7rem;
+}
 .comment-user-content {
     margin-top: 0.3rem;
     font-size: 0.9rem;
@@ -297,11 +304,31 @@ i powinna zajmować większość dostępnej przestrzeni
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Center vertically */
 }
+
+.selection option {
+    background-color: white; /* Set background color of the options */
+    color: #000000; /* Set text color of the options */
+}
 .list-genres-options a:hover{
    color: var(--orange);
     transition: 0.3s;
 }
 /*Movie.html END*/
+/*BUTTON*/
+
+
+button.delete-button {
+    color: var(--orange);
+    border: none;
+    background-color: transparent;
+    font-size: inherit; /* Dziedziczenie rozmiaru czcionki */
+    cursor: pointer; /* Zmiana transition na color, aby dotyczyło zmiany koloru tekstu */
+}
+
+button.delete-button:focus {
+    outline: none; /* Usunięcie domyślnego podświetlenia dla fokusu */
+}
+/*/
 /*textarea domyślnie nie dziedziczy czcionki z body*/
 textarea {
     font-family: inherit;

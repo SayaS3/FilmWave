@@ -7,10 +7,7 @@ import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,7 +56,7 @@ public class MovieManagementController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/admin/edit-movie/{id}")
+    @PutMapping("/admin/edit-movie/{id}")
     public String editMovie(@PathVariable Long id, MovieSaveDto movie, RedirectAttributes redirectAttributes) {
         movieService.editMovie(id, movie);
         redirectAttributes.addFlashAttribute(
@@ -67,7 +64,7 @@ public class MovieManagementController {
                 "Movie %s has been updated.".formatted(movie.getTitle()));
         return "redirect:/movie/{id}";
     }
-    @GetMapping("/admin/delete-movie/{id}")
+    @DeleteMapping("/admin/delete-movie/{id}")
     public String deleteMovie(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         movieService.deleteMovie(id);
         redirectAttributes.addFlashAttribute(

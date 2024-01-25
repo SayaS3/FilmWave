@@ -49,22 +49,28 @@ public class GenreService {
         }
 
     }
-    @Transactional
-    public void deleteGenre(GenreDto genreToEdit) {
-        Optional<Genre> genreToDelete = genreRepository.findById(genreToEdit.getId());
-        if (genreToDelete.isPresent()) {
-            Genre genre = genreToDelete.get();
-            List<Movie> moviesWithThatGenre = movieRepository.findAllByGenre(genre);
-            // Oznaczanie filmów jako bez gatunku
-            for (Movie movie : moviesWithThatGenre) {
-                movie.setGenre(null);
-            }
-            movieRepository.saveAll(moviesWithThatGenre);
-            genreRepository.delete(genre);
-        }
-    }
+
     public Optional<GenreDto> findGenreById(Long id) {
         return genreRepository.findById(id)
                 .map(GenreDtoMapper::map);
+    }
+
+    public Optional<GenreDto> getGenreById(Long id) {
+        return genreRepository.findById(id)
+                .map(GenreDtoMapper::map);
+    }
+@Transactional
+    public void deleteGenreById(Long id) {
+    Optional<Genre> genreToDelete = genreRepository.findById(id);
+    if (genreToDelete.isPresent()) {
+        Genre genre = genreToDelete.get();
+        List<Movie> moviesWithThatGenre = movieRepository.findAllByGenre(genre);
+        // Oznaczanie filmów jako bez gatunku
+        for (Movie movie : moviesWithThatGenre) {
+            movie.setGenre(null);
+        }
+        movieRepository.saveAll(moviesWithThatGenre);
+        genreRepository.delete(genre);
+    }
     }
 }
