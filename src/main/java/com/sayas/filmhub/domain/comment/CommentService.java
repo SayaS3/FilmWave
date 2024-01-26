@@ -63,7 +63,7 @@ public class CommentService {
             user.setShadowBanned(true);
             userRepository.save(user);
         } else {
-            throw new NotFoundException("Comment not found for user, movie, and content combination.");
+            throw new NotFoundException("User not found.");
         }
     }
 }
