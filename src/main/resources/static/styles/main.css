@@ -152,6 +152,31 @@ i powinna zajmować większość dostępnej przestrzeni
     font-size: 1.2rem;
 }
 /*Jumbotron END*/
+
+/*/ SEARCH*/
+.form-search{
+
+}
+.search-textarea {
+    margin-top: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    padding: 10px;
+    color: black;
+    max-height: 50px; /* Maksymalna wysokość */
+    height: 50px;    /* Początkowa wysokość */
+}
+.search-submit-btn{
+
+    padding: 10px;
+    background-color: var(--orange); /* Stosuje stały kolor do tła przycisku */
+    color: white; /* Ustawia kolor tekstu na biały */
+    border: none;
+    cursor: pointer;
+}
+
+
 /*Movie.html*/
 /*Informacje o filmie w jednym rzędzie z odstępem od jumbotrona*/
 .movie-summary {
@@ -176,6 +201,8 @@ i powinna zajmować większość dostępnej przestrzeni
 .movie-summary-item {
     margin: 8px 0;
 }
+
+
 /*Większy tytuł filmu*/
 .movie-summary-title {
     font-size: 2rem;
@@ -204,7 +231,6 @@ i powinna zajmować większość dostępnej przestrzeni
     margin-top: 0.7rem;
 }
 .comment-user-content {
-    margin-top: 0.3rem;
     font-size: 0.9rem;
 }
 .comment-submit-btn {

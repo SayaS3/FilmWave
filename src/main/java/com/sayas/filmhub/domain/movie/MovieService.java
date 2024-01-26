@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -111,5 +112,12 @@ public class MovieService {
             // Delete the movie
             movieRepository.delete(movie);
         }
+    }
+
+    public List<MovieDto> searchMovies(String query) {
+        List<Movie> searchResults = movieRepository.findByTitleContainingIgnoreCase(query);
+        return searchResults.stream()
+                .map(MovieDtoMapper::map)
+                .collect(Collectors.toList());
     }
 }

@@ -16,6 +16,7 @@
             <column name="userName" type="VARCHAR(10)">
                 <constraints unique="true"/>
             </column>
+            <column name="shadow_banned" type="BOOLEAN"/>
         </createTable>
 
         <createTable tableName="user_role">
@@ -47,6 +48,7 @@
                              primaryKeyName="pk_user_roles"
                 />
             </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

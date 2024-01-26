@@ -2,6 +2,7 @@ package com.sayas.filmhub.domain.user;
 
 import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
 import com.sayas.filmhub.domain.user.dto.UserRegistrationDto;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,5 +45,15 @@ public class UserService {
     public Optional<UserCredentialsDto> getuserNameById(Long userId) {
         return userRepository.findById(userId)
                 .map(UserCredentialsDtoMapper::map);
+    }
+
+    public boolean isShadowBanned(Long userId) throws NotFoundException {
+        Optional<User> userWithShadowBan = userRepository.findById(userId);
+        if (userWithShadowBan.isPresent()) {
+            User user = userWithShadowBan.get();
+            return user.isShadowBanned();
+        } else {
+            throw new NotFoundException("User not found with ID: " + userId);
+        }
     }
 }

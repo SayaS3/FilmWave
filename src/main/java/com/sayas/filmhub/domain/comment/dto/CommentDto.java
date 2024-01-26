@@ -10,7 +10,6 @@ public class CommentDto {
     private String username;
     private String content;
 
-
     public CommentDto(Long id, Long movieId, Long userId, String username, String content) {
         this.id = id;
         this.movieId = movieId;

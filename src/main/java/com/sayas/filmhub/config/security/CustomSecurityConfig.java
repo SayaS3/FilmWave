@@ -32,6 +32,7 @@ public class CustomSecurityConfig {
                 authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(mvc.pattern("/admin/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
                         .requestMatchers(mvc.pattern("/delete-comment/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
+                        .requestMatchers(mvc.pattern("/shadow-ban/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
                         .requestMatchers(mvc.pattern("/rate-movie")).authenticated()
                         .requestMatchers(mvc.pattern("/add-comment")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(toH2Console()).hasAnyRole(ADMIN_ROLE)

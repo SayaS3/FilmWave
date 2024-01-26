@@ -7,6 +7,10 @@
 <body>
 <div class="container">
   <main class="main-content" layout:fragment="content">
+    <form th:action="@{/search}" method="get" class="form-search">
+      <textarea name="query" rows="4" placeholder="Search movies..." class="search-textarea" maxlength="255"></textarea>
+      <button class="search-submit-btn" type="submit">Search</button>
+    </form>
     <!-- Get the header from the model -->
     <h2 class="list-heading" th:text="${heading}">Featured Movies / Category Name</h2>
     <!-- Get the description from the model -->

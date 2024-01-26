@@ -8,11 +8,13 @@ public class UserCredentialsDto {
     private final String username;
     private final Set<String> roles;
 
+    private final boolean shadowBanned;
     public UserCredentialsDto(String email, String password, String username, Set<String> roles) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.roles = roles;
+        this.shadowBanned = false;
     }
 
     public String getUsername() {

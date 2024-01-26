@@ -43,11 +43,25 @@ public class CommentService {
         comment.setContent(content);
         commentRepository.save(comment);
     }
+
     @Transactional
     public void deleteComment(Long id) throws NotFoundException {
         Optional<Comment> comment = commentRepository.findById(id);
         if (comment.isPresent()) {
             commentRepository.delete(comment.get());
+        } else {
+            throw new NotFoundException("Comment not found for user, movie, and content combination.");
+        }
+    }
+    @Transactional
+    public void shadowBan(Long id) throws NotFoundException {
+        Optional<Comment> commentToFind = commentRepository.findById(id);
+        if (commentToFind.isPresent()) {
+            Comment comment = commentToFind.get();
+            User user = userRepository.findById(comment.getUser().getId())
+                    .orElseThrow(() -> new NotFoundException("User not found"));
+            user.setShadowBanned(true);
+            userRepository.save(user);
         } else {
             throw new NotFoundException("Comment not found for user, movie, and content combination.");
         }

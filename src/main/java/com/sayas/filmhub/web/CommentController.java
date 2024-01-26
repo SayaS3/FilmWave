@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -22,6 +23,12 @@ public class CommentController {
                              Authentication authentication) throws NotFoundException {
         String userName = authentication.getName();
         commentService.addComment(userName, movieId, content);
+        return "redirect:/movie/" + movieId;
+    }
+    @PutMapping("/shadow-ban/{id}")
+    public String shadowBan(@RequestParam Long id,
+                            @RequestParam Long movieId) throws NotFoundException {
+        commentService.shadowBan(id);
         return "redirect:/movie/" + movieId;
     }
     @DeleteMapping("/delete-comment/{id}")

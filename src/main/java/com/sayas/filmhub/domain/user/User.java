@@ -19,6 +19,8 @@ public class User {
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
+    @Column(name = "shadow_banned", nullable = false)
+    private boolean shadowBanned;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -26,6 +28,19 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<UserRole> roles = new HashSet<>();
+
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isShadowBanned() {
+        return shadowBanned;
+    }
+
+    public void setShadowBanned(boolean shadowBanned) {
+        this.shadowBanned = shadowBanned;
+    }
 
     public Long getId() {
         return id;
