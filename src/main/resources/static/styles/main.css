@@ -440,6 +440,44 @@ textarea {
 .mc-form > input[type=file] {
     color: white;
 }
+.alert.alert-success {
+    background-color: var(--orange);
+    border-color: var(--orange);
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*/REPORT*/
+.report-header p{
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+}
+.error-reports-list {
+    list-style: none;
+    text-align: center; /* Center the list items */
+}
+
+.error-report {
+    max-width: 800px; /* Set a maximum width for the error report */
+    margin: 0 auto; /* Center the error report horizontally */
+    padding: 20px;
+    background-color: rgba(61, 61, 61, 0.73); /* Add a background color for better contrast */
+}
+.report-details {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+
+    justify-content: center;
+}
+h1 {
+    text-align: center;
+    padding: 10px;
+}
+
 /*Responsive movie.html*/
 @media only screen and (min-width: 992px) {
     /*Dodajemy rozkład elastyczny, elementy będą wyświetlane w jednym wierszu*/

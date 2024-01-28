@@ -10,6 +10,7 @@
     <include file="0003_create_tables_users_and_role.xml" relativeToChangelogFile="true" />
     <include file="0004_create_table_movie_rating.xml" relativeToChangelogFile="true" />
     <include file="0005_create_table_comments.xml" relativeToChangelogFile="true" />
+    <include file="0006_create_table_error_reports.xml" relativeToChangelogFile="true" />
 
     <!-- TEST DATA -->
     <include file="../testdata/0001_genres.sql" relativeToChangelogFile="true"/>
@@ -17,4 +18,5 @@
     <include file="../testdata/0003_users_and_roles.sql" relativeToChangelogFile="true"/>
     <include file="../testdata/0004_movie_ratings.sql" relativeToChangelogFile="true"/>
     <include file="../testdata/0005_movie_comments.sql" relativeToChangelogFile="true"/>
+    <include file="../testdata/0006_error_reports.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

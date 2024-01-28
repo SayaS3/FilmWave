@@ -9,9 +9,12 @@
     <title th:text="|${movie.title} - MovieClub|">Title of the Movie - MovieClub</title>
 </head>
 <body>
+
 <div class="container">
+
     <main class="main-content" layout:fragment="content">
         <section class="movie">
+
             <!-- Summary -->
             <div class="movie-summary">
 
@@ -137,6 +140,24 @@
             <p th:unless="${#lists.size(comments) > 0}">No comments yet.</p>
 
 
+        </section>
+        <section class="movie-section">
+
+            <h3 class="movie-section-heading">Report Error</h3>
+            <div th:if="${reportSuccessMessage}" class="alert alert-success">
+                <p th:text="${reportSuccessMessage}"></p>
+            </div>
+            <form action="/report-error" th:method="post"
+                  sec:authorize="isAuthenticated()"
+                  class="report-error-form">
+                <input type="hidden" name="movieId" th:value="${movie.id}">
+                <textarea name="errorDescription" rows="4" placeholder="Describe the error" class="comment-textarea" maxlength="255"></textarea>
+                <button type="submit" class="comment-submit-btn">Report Error</button>
+            </form>
+            <!-- Display login link only when the user is not logged in -->
+            <p sec:authorize="!isAuthenticated()">
+                <a href="#" th:href="@{/login}">Log in</a> to report an error
+            </p>
         </section>
     </main>
 </div>
