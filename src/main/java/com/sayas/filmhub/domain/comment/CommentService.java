@@ -30,6 +30,7 @@ public class CommentService {
                 .map(CommentDtoMapper::map)
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public void addComment(String userName, Long movieId, String content) throws NotFoundException {
         User user = userRepository.findByUsername(userName)
@@ -53,6 +54,7 @@ public class CommentService {
             throw new NotFoundException("Comment not found for user, movie, and content combination.");
         }
     }
+
     @Transactional
     public void shadowBan(Long id) throws NotFoundException {
         Optional<Comment> commentToFind = commentRepository.findById(id);

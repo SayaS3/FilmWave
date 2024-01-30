@@ -32,10 +32,6 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 
 ## Planned Features
 
-- **Movie Search:** A search feature to find specific movies.
-
-- **Error Reporting:** Users can report errors in movie descriptions.
-
 - **Public User Profile:** View public profiles of users, including their rated and commented movies.
 
 - **User Administration:** Administrators can manage users and block accounts if necessary.

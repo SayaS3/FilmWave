@@ -1,6 +1,7 @@
 /*CSS reset*/
 :root {
-    --orange: rgb(255, 205, 0);
+    --orange: rgb(255, 206, 0);
+    --grey: #181815;
 }
 * {
     margin: 0;
@@ -16,6 +17,31 @@ a {
     text-decoration: none;
     color: var(--orange);
 }
+textarea {
+    background-color: #33332e;
+    padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    resize: none; /* Wyłączenie opcji zmiany rozmiaru */
+    font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
+    color: white; /* Kolor tekstu */
+}
+input {
+    background-color: #33332e;
+    padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    resize: none; /* Wyłączenie opcji zmiany rozmiaru */
+    font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
+    color: white; /* Kolor tekstu */
+}
+input:focus {
+    outline: none; /* Usunięcie domyślnego obramowania dla aktywnego stanu */
+    border-color: var(--orange); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
+}
+/* Dodatkowe style, np. dla aktywnego stanu textarea */
+textarea:focus {
+    outline: none; /* Usunięcie domyślnego obramowania dla aktywnego stanu */
+    border-color: var(--orange); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
+}
 /*Kolor tła w głównym kontenerze i ustawienie elastycznego rozkładu
 Elementy będą ustawiane jeden pod drugim
 */
@@ -23,7 +49,7 @@ Elementy będą ustawiane jeden pod drugim
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #424242;
+    background-color: var(--grey);
 }
 /*Główna sekcja powinna być skalowana wraz z rozciąganiem okna przeglądarki
 i powinna zajmować większość dostępnej przestrzeni
@@ -163,12 +189,11 @@ i powinna zajmować większość dostępnej przestrzeni
     box-sizing: border-box;
     resize: vertical;
     padding: 10px;
-    color: black;
+    color: white;
     max-height: 50px; /* Maksymalna wysokość */
     height: 50px;    /* Początkowa wysokość */
 }
 .search-submit-btn{
-
     padding: 10px;
     background-color: var(--orange); /* Stosuje stały kolor do tła przycisku */
     color: white; /* Ustawia kolor tekstu na biały */
@@ -216,7 +241,7 @@ i powinna zajmować większość dostępnej przestrzeni
     box-sizing: border-box;
     resize: vertical;
     padding: 10px;
-    color: black; /* Stosuje stały kolor do tekstu */
+    color: white; /* Stosuje stały kolor do tekstu */
 }
 .comment-user {
     margin-top: 0.5rem;
@@ -370,13 +395,7 @@ textarea {
     margin-top: 8px;
 }
 /*większe inputy z paddingami*/
-.mc-form > input,
-.mc-form > textarea,
-.mc-form > button {
-    font-size: 1.2rem;
-    color: black;
-    padding: 8px;
-}
+
 .mc-form > button {
     margin-top: 16px;
     background-color: white;
@@ -419,8 +438,24 @@ textarea {
 .mc-form > button,
 .mc-form > select { /*dodany selektor*/
     font-size: 1.2rem;
-    color: black;
+    color: white;
     padding: 8px;
+}
+.mc-form > button{
+    background-color: #33332e;
+    padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    resize: none; /* Wyłączenie opcji zmiany rozmiaru */
+    font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
+    color: white; /* Kolor tekstu */
+}
+.mc-form > select {
+    background-color: #33332e;
+    padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    resize: none; /* Wyłączenie opcji zmiany rozmiaru */
+    font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
+    color: white; /* Kolor tekstu */
 }
 .registration-link {
     text-align: center;
@@ -447,7 +482,6 @@ textarea {
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
-    margin-top: 10px;
     margin-bottom: 10px;
 }
 /*/REPORT*/
@@ -477,6 +511,29 @@ h1 {
     text-align: center;
     padding: 10px;
 }
+/*/ USER PROFILE*/
+
+.profile-heading {
+    color: #333;
+}
+
+.user-info {
+    margin: 10px 0;
+}
+
+.username, .email {
+    font-weight: bold;
+}
+
+.ratings-heading {
+
+}
+
+.ratings-list {
+    list-style: none;
+    padding: 0;
+}
+
 
 /*Responsive movie.html*/
 @media only screen and (min-width: 992px) {

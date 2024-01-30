@@ -1,6 +1,7 @@
 package com.sayas.filmhub.domain.movie;
 
 import com.sayas.filmhub.domain.comment.CommentRepository;
+import com.sayas.filmhub.domain.errorreport.ErrorReportRepository;
 import com.sayas.filmhub.domain.genre.Genre;
 import com.sayas.filmhub.domain.genre.GenreRepository;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
@@ -20,17 +21,18 @@ import java.util.stream.Collectors;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final ErrorReportRepository errorReportRepository;
     private final GenreRepository genreRepository;
     private final CommentRepository commentRepository;
     private final FileStorageService fileStorageService;
 
-    public MovieService(MovieRepository movieRepository, GenreRepository genreRepository, CommentRepository commentRepository, FileStorageService fileStorageService) {
+    public MovieService(MovieRepository movieRepository, ErrorReportRepository errorReportRepository, GenreRepository genreRepository, CommentRepository commentRepository, FileStorageService fileStorageService) {
         this.movieRepository = movieRepository;
+        this.errorReportRepository = errorReportRepository;
         this.genreRepository = genreRepository;
         this.commentRepository = commentRepository;
         this.fileStorageService = fileStorageService;
     }
-
 
     public List<MovieDto> findAllPromotedMovies() {
         return movieRepository.findAllByPromotedIsTrue().stream()
@@ -105,7 +107,7 @@ public class MovieService {
 
         if (movieToDelete.isPresent()) {
             Movie movie = movieToDelete.get();
-
+            errorReportRepository.deleteByMovie(movie);
             // Delete associated comments
             commentRepository.deleteByMovie(movie);
 

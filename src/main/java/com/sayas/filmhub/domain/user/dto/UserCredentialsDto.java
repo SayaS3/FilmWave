@@ -3,6 +3,7 @@ package com.sayas.filmhub.domain.user.dto;
 import java.util.Set;
 
 public class UserCredentialsDto {
+
     private final String email;
     private final String password;
     private final String username;

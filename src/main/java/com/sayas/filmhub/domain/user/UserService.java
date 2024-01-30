@@ -42,8 +42,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<UserCredentialsDto> getuserNameById(Long userId) {
-        return userRepository.findById(userId)
+    public Optional<UserCredentialsDto> getuserByName(String username) {
+        return userRepository.findByUsername(username)
                 .map(UserCredentialsDtoMapper::map);
     }
 

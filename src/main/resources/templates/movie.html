@@ -30,7 +30,7 @@
                     <p sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')">
                         <a href="#" th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
                     </p>
-                    <h1 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h1>
+                    <h2 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h2>
                     <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the Rings</p>
                     <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
                     <!-- Set link to the genre page, e.g., /genre/fantasy -->
@@ -112,7 +112,9 @@
                     <input type="hidden" name="movieId" th:value="${movie.id}" />
                     <div class="movie-comment">
                         <div class="comment-heading">
-                            <div class="comment-user" th:text="${comment.username}">Username</div>
+                            <div class="comment-user">
+                                <a th:href="@{'/user/' + ${comment.username}}" th:text="${comment.username}">Username</a>
+                            </div>
                             <div class="delete-comment" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
                                 <form th:action="@{|/shadow-ban/${comment.id}|}" th:method="put">
                                     <input type="hidden" name="id" th:value="${comment.id}" />

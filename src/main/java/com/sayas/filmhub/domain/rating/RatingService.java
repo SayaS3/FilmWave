@@ -4,9 +4,11 @@ import com.sayas.filmhub.domain.movie.Movie;
 import com.sayas.filmhub.domain.movie.MovieRepository;
 import com.sayas.filmhub.domain.user.User;
 import com.sayas.filmhub.domain.user.UserRepository;
+import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,5 +41,9 @@ public class RatingService {
     public Optional<Integer> getUserRatingForMovie(String username, long movieId) {
         return ratingRepository.findByUser_UsernameAndMovie_Id(username, movieId)
                 .map(Rating::getRating);
+    }
+
+    public List<Rating> findByUsername(UserCredentialsDto user) {
+        return ratingRepository.findByUser_Username(user.getUsername());
     }
 }
