@@ -29,6 +29,10 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 - **Display Movies and Genres:** Users can view a list of movies and genres.
 - **Admin Panel:** Admins can manage genres and movies, including addition, editing, and deletion.
 - **Comments:** Logged-in users can post comments on movies.
+- **Comments System:** Users can comment on movies, and administrators have the ability to manage comments and apply shadow bans.
+- **Movie Search:** A search feature to find specific movies.
+- **Error Reporting:** Users can report errors in movie descriptions.
+- **Public User Profile:** View public profiles of users, including their rated movies.
 
 ## Planned Features
 
