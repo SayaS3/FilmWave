@@ -36,8 +36,6 @@ MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and
 
 ## Planned Features
 
-- **Public User Profile:** View public profiles of users, including their rated and commented movies.
-
 - **User Administration:** Administrators can manage users and block accounts if necessary.
 
 - **Edit User Profile:** Users can edit their profile information, such as changing email addresses or passwords.
