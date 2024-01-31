@@ -1,7 +1,11 @@
 package com.sayas.filmhub.domain.user;
 
+import com.sayas.filmhub.domain.comment.Comment;
+import com.sayas.filmhub.domain.errorreport.ErrorReport;
+import com.sayas.filmhub.domain.rating.Rating;
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,12 +32,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<UserRole> roles = new HashSet<>();
-
-
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
-    }
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Rating> ratings;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<ErrorReport> reports;
     public boolean isShadowBanned() {
         return shadowBanned;
     }

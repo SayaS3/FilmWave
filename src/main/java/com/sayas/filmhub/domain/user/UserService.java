@@ -3,13 +3,14 @@ package com.sayas.filmhub.domain.user;
 import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
 import com.sayas.filmhub.domain.user.dto.UserRegistrationDto;
 import javassist.NotFoundException;
-import org.springframework.stereotype.Service;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -38,6 +39,7 @@ public class UserService {
         user.setEmail(userRegistration.getEmail());
         user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
         user.setUsername(userRegistration.getUsername());
+        user.setShadowBanned(false);
         user.getRoles().add(defaultRole);
         userRepository.save(user);
     }
@@ -54,6 +56,47 @@ public class UserService {
             return user.isShadowBanned();
         } else {
             throw new NotFoundException("User not found with ID: " + userId);
+        }
+    }
+
+    public List<UserCredentialsDto> getAllUsers() {
+        Iterable<User> userIterable = userRepository.findAll();
+        List<User> users = StreamSupport.stream(userIterable.spliterator(), false)
+                .toList();
+        return users.stream()
+                .map(UserCredentialsDtoMapper::map)
+                .collect(Collectors.toList());
+    }
+    @Transactional
+    public void shadowBan(String userName) throws NotFoundException {
+        Optional<User> userToFind = userRepository.findByUsername(userName);
+        if (userToFind.isPresent()) {
+            User user = userToFind.get();
+            user.setShadowBanned(true);
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+    @Transactional
+    public void unban(String userName) throws NotFoundException {
+        Optional<User> userToFind = userRepository.findByUsername(userName);
+        if (userToFind.isPresent()) {
+            User user = userToFind.get();
+            user.setShadowBanned(false);
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User not found.");
+        }
+    }
+@Transactional
+    public void deleteUser(String userName) throws NotFoundException {
+        Optional<User> userToFind = userRepository.findByUsername(userName);
+        if (userToFind.isPresent()) {
+            User user = userToFind.get();
+            userRepository.delete(user);
+        } else {
+            throw new NotFoundException("User not found.");
         }
     }
 }

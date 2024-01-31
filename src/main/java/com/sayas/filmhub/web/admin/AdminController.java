@@ -2,6 +2,7 @@ package com.sayas.filmhub.web.admin;
 
 import com.sayas.filmhub.domain.errorreport.ErrorReport;
 import com.sayas.filmhub.domain.errorreport.ErrorReportService;
+import com.sayas.filmhub.domain.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,9 +13,9 @@ import java.util.List;
 
 @Controller
 class AdminController {
-    ErrorReportService errorReportService;
+    private final ErrorReportService errorReportService;
 
-    public AdminController(ErrorReportService errorReportService) {
+    public AdminController(ErrorReportService errorReportService, UserService userService) {
         this.errorReportService = errorReportService;
     }
 

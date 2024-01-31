@@ -10,12 +10,16 @@ public class UserCredentialsDto {
     private final Set<String> roles;
 
     private final boolean shadowBanned;
-    public UserCredentialsDto(String email, String password, String username, Set<String> roles) {
+    public UserCredentialsDto(String email, String password, String username, Set<String> roles, boolean shadowBanned) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.roles = roles;
-        this.shadowBanned = false;
+        this.shadowBanned=shadowBanned;
+    }
+
+    public boolean isShadowBanned() {
+        return shadowBanned;
     }
 
     public String getUsername() {

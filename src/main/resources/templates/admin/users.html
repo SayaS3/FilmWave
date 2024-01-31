@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Users - FilmHub</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+  <h2 class="list-heading">Users</h2>
+  <p class="list-description">
+    Below you will find a list of users in our system. Manage and block accounts as necessary.
+  </p>
+  <ul class="list-border">
+    <li th:each="user: ${users}">
+      <a th:href="@{|/user/${user.username}|}" th:text="${user.username}"></a>
+      <p th:text="${user.email}"></p>
+      <p th:text="${user.roles}"></p>
+      <div class="delete-comment" th:unless="${user.roles.contains('ADMIN')}">
+        <!-- Unban button -->
+        <form th:action="@{|/admin/unban/${user.username}|}" th:method="put" th:if="${user.shadowBanned}">
+          <button type="submit"
+                  onclick="return confirm('Are you sure you want to unban this user?');"
+                  class="delete-button">Unban</button>
+        </form>
+
+        <!-- Ban button -->
+        <form th:action="@{|/admin/shadow-ban/${user.username}|}" th:method="put" th:unless="${user.shadowBanned}">
+          <button type="submit"
+                  onclick="return confirm('Are you sure you want to shadow ban this user?');"
+                  class="delete-button">Ban</button>
+        </form>
+
+        <!-- Delete button -->
+        <form th:action="@{|/admin/delete/${user.username}|}" th:method="delete">
+          <button type="submit"
+                  onclick="return confirm('Are you sure you want to delete this user?');"
+                  class="delete-button">Delete</button>
+        </form>
+      </div>
+    </li>
+  </ul>
+</main>
+</body>
+</html>

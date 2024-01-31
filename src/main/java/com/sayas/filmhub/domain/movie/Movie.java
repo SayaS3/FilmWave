@@ -26,6 +26,7 @@ public class Movie {
     private Genre genre;
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Rating> ratings = new HashSet<>();
+
     private boolean promoted;
     private String poster;
 

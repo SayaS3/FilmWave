@@ -10,10 +10,11 @@ class UserCredentialsDtoMapper {
         String email = user.getEmail();
         String password = user.getPassword();
         String username = user.getUsername();
+        boolean shadowBanned = user.isShadowBanned();
         Set<String> roles = user.getRoles()
                 .stream()
                 .map(UserRole::getName)
                 .collect(Collectors.toSet());
-        return new UserCredentialsDto(email, password, username, roles);
+        return new UserCredentialsDto(email, password, username, roles, shadowBanned);
     }
 }
