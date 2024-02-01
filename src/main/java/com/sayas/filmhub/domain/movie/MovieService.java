@@ -4,13 +4,16 @@ import com.sayas.filmhub.domain.comment.CommentRepository;
 import com.sayas.filmhub.domain.errorreport.ErrorReportRepository;
 import com.sayas.filmhub.domain.genre.Genre;
 import com.sayas.filmhub.domain.genre.GenreRepository;
+import com.sayas.filmhub.domain.genre.dto.GenreDto;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import com.sayas.filmhub.storage.FileStorageService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,11 +45,6 @@ public class MovieService {
         return movieRepository.findById(id).map(MovieDtoMapper::map);
     }
 
-    public List<MovieDto> findMoviesByGenreName(String genre) {
-        return movieRepository.findAllByGenre_NameIgnoreCase(genre).stream()
-                .map(MovieDtoMapper::map)
-                .toList();
-    }
 
     @Transactional
     public void addMovie(MovieSaveDto movieToSave) {
@@ -116,5 +114,10 @@ public class MovieService {
         Page<Movie> searchResults = movieRepository.findByTitleContainingIgnoreCase(query, pageable);
         return searchResults.map(MovieDtoMapper::map);
     }
+
+    public Page<MovieDto> findMoviesByGenreNameWithPagination(String genreName, Pageable pageable) {
+        return movieRepository.findByGenreName(genreName, pageable).map(MovieDtoMapper::map);
+    }
+
 
 }

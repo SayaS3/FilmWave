@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Movie> findAllByPromotedIsTrue(Pageable pageable);
-    List<Movie> findAllByGenre_NameIgnoreCase(String genre);
+    Page<Movie> findByGenreName(String genreName, Pageable pageable);
     @Query("select m from Movie m join m.ratings r group by m order by avg(r.rating) desc")
     Page<Movie> findTopByRating(Pageable pageable);
     List<Movie> findAllByGenre(Genre genre);
