@@ -8,13 +8,12 @@ import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import com.sayas.filmhub.storage.FileStorageService;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -34,10 +33,9 @@ public class MovieService {
         this.fileStorageService = fileStorageService;
     }
 
-    public List<MovieDto> findAllPromotedMovies() {
-        return movieRepository.findAllByPromotedIsTrue().stream()
-                .map(MovieDtoMapper::map)
-                .toList();
+    public Page<MovieDto> findAllPromotedMovies(Pageable pageable) {
+        Page<Movie> moviesPage = movieRepository.findAllByPromotedIsTrue(pageable);
+        return moviesPage.map(MovieDtoMapper::map);
     }
 
     public Optional<MovieDto> findMovieById(long id) {
@@ -69,12 +67,10 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public List<MovieDto> findTopMovies(int size) {
-        Pageable page = PageRequest.of(0, size);
-        return movieRepository.findTopByRating(page).stream()
-                .map(MovieDtoMapper::map)
-                .toList();
+    public Page<MovieDto> findTopMovies(Pageable pageable) {
+        return movieRepository.findTopByRating(pageable).map(MovieDtoMapper::map);
     }
+
 
     @Transactional
     public void editMovie(Long id, MovieSaveDto movieChanged) {
@@ -116,10 +112,9 @@ public class MovieService {
         }
     }
 
-    public List<MovieDto> searchMovies(String query) {
-        List<Movie> searchResults = movieRepository.findByTitleContainingIgnoreCase(query);
-        return searchResults.stream()
-                .map(MovieDtoMapper::map)
-                .collect(Collectors.toList());
+    public Page<MovieDto> searchMovies(String query, Pageable pageable) {
+        Page<Movie> searchResults = movieRepository.findByTitleContainingIgnoreCase(query, pageable);
+        return searchResults.map(MovieDtoMapper::map);
     }
+
 }

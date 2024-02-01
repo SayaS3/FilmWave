@@ -24,8 +24,20 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String register(UserRegistrationDto userRegistration) {
+    public String register(UserRegistrationDto userRegistration, Model model) {
+        model.addAttribute("user", userRegistration);
+
+        if (userService.existsByEmail(userRegistration.getEmail())) {
+            model.addAttribute("emailExistsError", "Użytkownik z tym adresem e-mail już istnieje");
+            return "registration-form";
+        }
+
+        if (userService.existsByUsername(userRegistration.getUsername())) {
+            model.addAttribute("usernameExistsError", "Użytkownik z tym nickiem już istnieje");
+            return "registration-form";
+        }
+
         userService.registerUserWithDefaultRole(userRegistration);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

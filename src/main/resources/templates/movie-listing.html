@@ -3,18 +3,17 @@
 <html lang="pl"
       xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+      layout:decorate="~{layout}"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <body>
 <div class="container">
   <main class="main-content" layout:fragment="content">
-    <form th:action="@{/search}" method="get" class="form-search">
-      <textarea name="query" rows="4" placeholder="Search movies..." class="search-textarea" maxlength="255"></textarea>
-      <button class="search-submit-btn" type="submit">Search</button>
-    </form>
     <!-- Get the header from the model -->
     <h2 class="list-heading" th:text="${heading}">Featured Movies / Category Name</h2>
     <!-- Get the description from the model -->
-    <p class="list-description" th:text="${description}">Section description, for example, category description or home page</p>
+    <p class="list-description" th:text="${description}">Section description, for example, category description or home
+      page</p>
     <!-- Keep only the first <li> element -->
     <ul class="movie-list" th:remove="all-but-first">
       <!-- Loop through all movies from the model -->
@@ -27,12 +26,15 @@
                alt="movie title"
                class="movie-list-item-poster">
         </a>
-        <div class="movie-list-item-edit-and-delete" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
+        <div class="movie-list-item-edit-and-delete"
+             th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
           <a
-             th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+                  th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
 
           <form th:action="@{|/admin/delete-movie/${movie.id}|}" th:method="delete">
-            <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?');" class="delete-button">Delete</button>
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?');"
+                    class="delete-button">Delete
+            </button>
           </form>
         </div>
         <div class="movie-list-item-card">
@@ -101,6 +103,22 @@
         </div>
       </li>
     </ul>
+    <div class="pagination">
+    <span th:if="${currentPage > 0}">
+        <a th:href="@{'?page=' + ${currentPage - 1}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </span>
+      <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+        <span th:if="${currentPage == i}" th:text="${i}" class="active"></span>
+        <a th:if="${currentPage != i}" th:href="@{'?page=' + ${i}}" th:text="${i}"></a>
+    </span>
+      <span th:if="${currentPage < totalPages - 1}">
+        <a th:href="@{'?page=' + ${currentPage + 1}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </span>
+    </div>
   </main>
 </div>
 </body>

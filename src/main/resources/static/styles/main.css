@@ -66,9 +66,11 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 /*Ustawienia dla responsywnego menu*/
 .menu {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
 }
 /*Elementy menu domyślnie są ukryte*/
 .menu-item {
@@ -162,13 +164,17 @@ i powinna zajmować większość dostępnej przestrzeni
 
 
 /*Listing END*/
+
 /*Jumbotron START*/
+
 .jumbotron {
     background-image: url("../img/jumbotron.png");
     background-position: center;
     background-repeat: no-repeat;
     padding: 2rem;
     text-align: center;
+    position: relative; /* Ustaw pozycję względną, aby pseudoelement ::before był pozycjonowany w odniesieniu do tego kontenera */
+    color: #fff; /
 }
 .jumbotron-header {
     font-size: 3rem;
@@ -180,25 +186,37 @@ i powinna zajmować większość dostępnej przestrzeni
 /*Jumbotron END*/
 
 /*/ SEARCH*/
-.form-search{
+.form-search {
+    position: relative;
+    display: inline-block;
+}
+.search-tool {
+    position: absolute;
+    top: 10px;
+    right: 25rem;
+}
 
-}
 .search-textarea {
-    margin-top: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
-    resize: vertical;
-    padding: 10px;
-    color: white;
-    max-height: 50px; /* Maksymalna wysokość */
-    height: 50px;    /* Początkowa wysokość */
+    padding-right: 40px; /* Dostosuj odstęp, aby pomieścić przycisk lupy */
 }
-.search-submit-btn{
-    padding: 10px;
-    background-color: var(--orange); /* Stosuje stały kolor do tła przycisku */
-    color: white; /* Ustawia kolor tekstu na biały */
+
+.search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 8px;
     border: none;
+    background-color: transparent;
     cursor: pointer;
+}
+
+/* Stylowanie ikony lupy (możesz użyć dowolnej ikony) */
+.search-text-input {
+    height: 20px;
+    /* Dodatkowe style, jeśli potrzebujesz dostosować wygląd */
+    padding: 5px;
+    font-size: 14px;
 }
 
 
@@ -533,7 +551,31 @@ h1 {
     list-style: none;
     padding: 0;
 }
+/* PAGINATION */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.pagination a, .pagination span {
+    color: var(--orange);
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 0 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination .active {
+    background-color: var(--orange);
+    color: #fff;
+}
+
+.pagination a:hover {
+    background-color: var(--orange);
+    color: #fff;
+}
 
 /*Responsive movie.html*/
 @media only screen and (min-width: 992px) {

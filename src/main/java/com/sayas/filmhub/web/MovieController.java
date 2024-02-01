@@ -6,9 +6,10 @@ import com.sayas.filmhub.domain.movie.MovieService;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
 import com.sayas.filmhub.domain.rating.RatingService;
 import com.sayas.filmhub.domain.user.UserService;
-import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
 import javassist.NotFoundException;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -38,17 +37,29 @@ public class MovieController {
         this.userService = userService;
     }
     @GetMapping("/search")
-    public String searchMovies(@RequestParam("query") String query, Model model) {
-        List<MovieDto> searchResults = movieService.searchMovies(query);
+    public String searchMovies(@RequestParam("query") String query,
+                               @RequestParam(defaultValue = "1") int page,
+                               @RequestParam(defaultValue = "10") int size,
+                               Model model) {
+        page = Math.max(page, 0);
+
+        Pageable pageable = PageRequest.of(page, size).previousOrFirst();
+
+        Page<MovieDto> searchResultsPage = movieService.searchMovies(query, pageable);
+
         model.addAttribute("heading", "Search Results");
         model.addAttribute("description", "Search results for: " + query);
-        model.addAttribute("movies", searchResults);
-        return "movie-listing"; // Tu używasz odpowiedniego widoku, w którym wyświetlasz wyniki wyszukiwania
+        model.addAttribute("movies", searchResultsPage.getContent());
+        model.addAttribute("currentPage", searchResultsPage.getNumber());
+        model.addAttribute("totalPages", searchResultsPage.getTotalPages());
+
+        return "movie-listing";
     }
     @GetMapping("/movie/{id}")
     public String getMovie(@PathVariable long id,
                            Model model,
                            Authentication authentication) {
+
         List<CommentDto> allComments = commentService.getCommentsByMovie(id);
 
         // Filtruj komentarze, usuwając te od shadowbanned użytkowników, ale pozwalaj na zobaczenie własnych komentarzy
@@ -78,12 +89,26 @@ public class MovieController {
         }
         return "movie";
     }
+
     @GetMapping("/top10")
-    public String findTop10(Model model) {
-        List<MovieDto> top10Movies = movieService.findTopMovies(10);
+    public String findTop10(@RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "10") int size,
+                            Model model) {
+        if (page < 0) {
+            page = 0;
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<MovieDto> top10MoviesPage = movieService.findTopMovies(pageable);
+
+
         model.addAttribute("heading", "Top 10 Movies");
         model.addAttribute("description", "Movies highly rated by users");
-        model.addAttribute("movies", top10Movies);
+        model.addAttribute("movies", top10MoviesPage.getContent());
+        model.addAttribute("currentPage", top10MoviesPage.getNumber());
+        model.addAttribute("totalPages", top10MoviesPage.getTotalPages());
+
         return "movie-listing";
     }
 }

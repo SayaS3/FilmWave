@@ -3,7 +3,8 @@
       xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
     <!-- Ustawiamy tytuł -->
     <title th:text="|${movie.title} - FilmHub|">Title of the Movie - FilmHub</title>
@@ -85,14 +86,16 @@
             <iframe width="560" height="315" class="movie-trailer"
                     src="https://www.youtube.com/embed/V75dMMIW2B4"
                     th:src="|https://www.youtube.com/embed/${movie.youtubeTrailerId}|"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </section>
         <!-- Description -->
         <section class="movie-section">
             <h2 class="movie-section-heading">Description</h2>
             <!-- Set the full description -->
-            <p th:text="${movie.description}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+            <p th:text="${movie.description}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                ante sollicitudin.
+                Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                vulputate fringilla.
                 Donec lacinia congue felis in faucibus.</p>
         </section>
         <section class="movie-section">
@@ -100,35 +103,43 @@
             <p class="movie-section-login" th:unless="${#authorization.expression('isAuthenticated()')}">
                 <a href="/login">Log in</a> to add comments.
             </p>
-            <form action="/add-comment" method="post" th:if="${#authorization.expression('isAuthenticated()')}" class="comment-form">
-                <textarea name="content" rows="4" placeholder="Add a comment" class="comment-textarea" maxlength="255"></textarea>
-                <input type="hidden" name="movieId" th:value="${movie.id}" />
+            <form action="/add-comment" method="post" th:if="${#authorization.expression('isAuthenticated()')}"
+                  class="comment-form">
+                <label>
+<textarea name="content" rows="4" placeholder="Add a comment" class="comment-textarea" maxlength="255"
+          required></textarea>
+                </label>
+                <input type="hidden" name="movieId" th:value="${movie.id}"/>
                 <button type="submit" class="comment-submit-btn">Submit</button>
             </form>
 
             <!-- Display comments if available -->
             <div th:if="${#lists.size(comments) > 0}">
-                <div th:each="comment : ${comments}" class="comment">
-                    <input type="hidden" name="movieId" th:value="${movie.id}" />
+                <div th:each="comment : ${comments}" class="comment" th:if="${comment.content.length() > 0}">
+                    <input type="hidden" name="movieId" th:value="${movie.id}"/>
                     <div class="movie-comment">
                         <div class="comment-heading">
                             <div class="comment-user">
-                                <a th:href="@{'/user/' + ${comment.username}}" th:text="${comment.username}">Username</a>
+                                <a th:href="@{'/user/' + ${comment.username}}"
+                                   th:text="${comment.username}">Username</a>
                             </div>
-                            <div class="delete-comment" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
+                            <div class="delete-comment"
+                                 th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
                                 <form th:action="@{|/shadow-ban/${comment.id}|}" th:method="put">
-                                    <input type="hidden" name="id" th:value="${comment.id}" />
-                                    <input type="hidden" name="movieId" th:value="${movie.id}" />
+                                    <input type="hidden" name="id" th:value="${comment.id}"/>
+                                    <input type="hidden" name="movieId" th:value="${movie.id}"/>
                                     <button type="submit"
                                             onclick="return confirm('Are you sure you want to shadow ban this user?');"
-                                            class="delete-button">Ban</button>
+                                            class="delete-button">Ban
+                                    </button>
                                 </form>
                                 <form th:action="@{|/delete-comment/${comment.id}|}" th:method="delete">
-                                    <input type="hidden" name="id" th:value="${comment.id}" />
-                                    <input type="hidden" name="movieId" th:value="${movie.id}" />
+                                    <input type="hidden" name="id" th:value="${comment.id}"/>
+                                    <input type="hidden" name="movieId" th:value="${movie.id}"/>
                                     <button type="submit"
                                             onclick="return confirm('Are you sure you want to delete this comment?');"
-                                            class="delete-button">Delete</button>
+                                            class="delete-button">Delete
+                                    </button>
                                 </form>
 
                             </div>
@@ -153,7 +164,10 @@
                   sec:authorize="isAuthenticated()"
                   class="report-error-form">
                 <input type="hidden" name="movieId" th:value="${movie.id}">
-                <textarea name="errorDescription" rows="4" placeholder="Describe the error" class="comment-textarea" maxlength="255"></textarea>
+                <label>
+<textarea name="errorDescription" rows="4" placeholder="Describe the error" class="comment-textarea"
+          maxlength="255" required></textarea>
+                </label>
                 <button type="submit" class="comment-submit-btn">Report Error</button>
             </form>
             <!-- Display login link only when the user is not logged in -->
@@ -161,6 +175,7 @@
                 <a href="#" th:href="@{/login}">Log in</a> to report an error
             </p>
         </section>
+
     </main>
 </div>
 </body>

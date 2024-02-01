@@ -3,11 +3,13 @@ package com.sayas.filmhub.web;
 
 import com.sayas.filmhub.domain.movie.MovieService;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -18,11 +20,28 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
-        List<MovieDto> promotedMovies = movieService.findAllPromotedMovies();
-        model.addAttribute("heading", "Featured Movies");
-        model.addAttribute("description", "Movies recommended by our team");
-        model.addAttribute("movies", promotedMovies);
+    public String home(Model model, @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size) {
+
+        page = Math.max(page, 0);
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        try {
+            Page<MovieDto> promotedMoviesPage = movieService.findAllPromotedMovies(pageable);
+
+            model.addAttribute("heading", "Featured Movies");
+            model.addAttribute("description", "Movies recommended by our team");
+            model.addAttribute("movies", promotedMoviesPage.getContent());
+
+            model.addAttribute("currentPage", promotedMoviesPage.getNumber());
+            model.addAttribute("totalPages", promotedMoviesPage.getTotalPages());
+
+        } catch (IllegalArgumentException e) {
+            // Handle the exception, e.g., redirect to a default page or display an error message
+            return "error"; // Assuming you have an "error" view
+        }
+
         return "movie-listing";
     }
 }
