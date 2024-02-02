@@ -1,4 +1,4 @@
-MovieClub is a dynamic web application crafted using Java Spring, Thymeleaf, and Spring Security. This platform offers users an immersive experience to discover, register, log in, and rate movies effortlessly.
+FilmHub is a dynamic web application crafted using Java Spring, Thymeleaf, and Spring Security. This platform offers users an immersive experience to discover, register, log in, and rate movies effortlessly.
 
 ## Key Features
 
