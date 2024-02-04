@@ -4,10 +4,7 @@ import com.sayas.filmhub.domain.comment.CommentService;
 import javassist.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CommentController {
@@ -21,19 +18,18 @@ public class CommentController {
     public String addComment(@RequestParam Long movieId,
                              @RequestParam String content,
                              Authentication authentication) throws NotFoundException {
-        String userName = authentication.getName();
-        commentService.addComment(userName, movieId, content);
+        commentService.addComment(authentication.getName(), movieId, content);
         return "redirect:/movie/" + movieId;
     }
     @PutMapping("/shadow-ban/{id}")
-    public String shadowBan(@RequestParam Long id,
+    public String shadowBan(@PathVariable String id,
                             @RequestParam Long movieId) throws NotFoundException {
-        commentService.shadowBan(id);
+        commentService.shadowBan(Long.parseLong(id));
         return "redirect:/movie/" + movieId;
     }
     @DeleteMapping("/delete-comment/{id}")
-    public String deleteComment(@RequestParam Long id,@RequestParam Long movieId) throws NotFoundException {
-        commentService.deleteComment(id);
+    public String deleteComment(@PathVariable String id, @RequestParam Long movieId) throws NotFoundException {
+        commentService.deleteComment(Long.parseLong(id));
         return "redirect:/movie/" + movieId;
     }
 }

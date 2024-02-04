@@ -38,8 +38,7 @@ public class HomeController {
             model.addAttribute("totalPages", promotedMoviesPage.getTotalPages());
 
         } catch (IllegalArgumentException e) {
-            // Handle the exception, e.g., redirect to a default page or display an error message
-            return "error"; // Assuming you have an "error" view
+            return "error";
         }
 
         return "movie-listing";

@@ -5,7 +5,7 @@
       layout:decorate="~{layout}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
-  <title>Zarejestruj się | FilmHub</title>
+  <title>Register | FilmHub</title>
 </head>
 <body>
 <main class="main-content" layout:fragment="content">
@@ -19,13 +19,16 @@
   </p>
   <form action="#" th:action="@{/registration}" method="post" class="mc-form" th:object="${user}">
     <label for="username">User Name</label>
-    <input id="username" type="text" placeholder="user name" th:field="*{username}">
+    <input id="username" type="text" placeholder="user name" th:field="*{username}" required>
 
     <label for="email">Email Address</label>
-    <input id="email" type="email" placeholder="email" th:field="*{email}">
+    <input id="email" type="email" placeholder="email" th:field="*{email}" required>
 
     <label for="password">Password</label>
-    <input id="password" placeholder="password" type="password" th:field="*{password}">
+    <input id="password" placeholder="password" type="password" th:field="*{password}" required
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least 8 characters, including at least one digit, one lowercase and one uppercase letter">
+    <p th:if="${#fields.hasErrors('password')}" class="mc-form-message" style="color: red;"
+       th:errors="*{password}">Invalid password</p>
 
     <button type="submit">Register</button>
   </form>

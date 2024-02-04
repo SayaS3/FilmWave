@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin")
 public class MovieManagementController {
     private final MovieService movieService;
     private final GenreService genreService;
@@ -24,7 +25,7 @@ public class MovieManagementController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/admin/add-movie")
+    @GetMapping("/add-movie")
     public String addMovieForm(Model model) {
         List<GenreDto> allGenres = genreService.findAllGenres();
         model.addAttribute("genres", allGenres);
@@ -32,7 +33,7 @@ public class MovieManagementController {
         model.addAttribute("movie", movie);
         return "admin/movie-form";
     }
-    @GetMapping("/admin/edit-movie/{id}")
+    @GetMapping("/edit-movie/{id}")
     public String editMovieForm(@PathVariable Long id, Model model) {
         Optional<MovieDto> movieOptional = movieService.findMovieById(id);
 
@@ -47,7 +48,7 @@ public class MovieManagementController {
             return "redirect:/admin"; // Przykładowy przekierowanie na stronę admina
         }
     }
-    @PostMapping("/admin/add-movie")
+    @PostMapping("/add-movie")
     public String addMovie(MovieSaveDto movie, RedirectAttributes redirectAttributes) {
         movieService.addMovie(movie);
         redirectAttributes.addFlashAttribute(
@@ -56,7 +57,7 @@ public class MovieManagementController {
         return "redirect:/admin";
     }
 
-    @PutMapping("/admin/edit-movie/{id}")
+    @PutMapping("/edit-movie/{id}")
     public String editMovie(@PathVariable Long id, MovieSaveDto movie, RedirectAttributes redirectAttributes) {
         movieService.editMovie(id, movie);
         redirectAttributes.addFlashAttribute(
@@ -64,7 +65,7 @@ public class MovieManagementController {
                 "Movie %s has been updated.".formatted(movie.getTitle()));
         return "redirect:/movie/{id}";
     }
-    @DeleteMapping("/admin/delete-movie/{id}")
+    @DeleteMapping("/delete-movie/{id}")
     public String deleteMovie(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         movieService.deleteMovie(id);
         redirectAttributes.addFlashAttribute(

@@ -109,9 +109,9 @@
             <span aria-hidden="true">&laquo;</span>
         </a>
     </span>
-      <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-        <span th:if="${currentPage == i}" th:text="${i}" class="active"></span>
-        <a th:if="${currentPage != i}" th:href="@{'?page=' + ${i}}" th:text="${i}"></a>
+      <span th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+        <span th:if="${currentPage + 1 == pageNumber}" th:text="${pageNumber}" class="active"></span>
+        <a th:if="${currentPage + 1 != pageNumber}" th:href="@{'?page=' + ${pageNumber - 1}}" th:text="${pageNumber}"></a>
     </span>
       <span th:if="${currentPage < totalPages - 1}">
         <a th:href="@{'?page=' + ${currentPage + 1}}" aria-label="Next">

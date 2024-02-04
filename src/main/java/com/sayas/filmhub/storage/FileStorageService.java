@@ -47,10 +47,6 @@ public class FileStorageService {
         return saveFile(file, imageStorageLocation);
     }
 
-    public String saveFile(MultipartFile file) {
-        return saveFile(file, fileStorageLocation);
-    }
-
     private String saveFile(MultipartFile file, String storageLocation) {
         Path filePath = createFilePath(file, storageLocation);
         try {

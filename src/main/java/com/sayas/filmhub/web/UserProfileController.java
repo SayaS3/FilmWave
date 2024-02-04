@@ -4,6 +4,8 @@ import com.sayas.filmhub.domain.rating.Rating;
 import com.sayas.filmhub.domain.rating.RatingService;
 import com.sayas.filmhub.domain.user.UserService;
 import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,23 @@ public class UserProfileController {
         } else {
             return "error/404";
         }
+    }
+    @GetMapping("/user-profile")
+    public String getUserProfile(Model model) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        userService.getuserByName(currentUsername)
+                .ifPresentOrElse(
+                        user -> {
+                            List<Rating> userRatings = ratingService.findByUsername(user);
+
+                            model.addAttribute("user", user);
+                            model.addAttribute("userRatings", userRatings);
+                        },
+                        () -> model.addAttribute("error", "User not found")
+                );
+
+        return "user-profile";
     }
 
 }

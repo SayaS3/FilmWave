@@ -17,4 +17,4 @@ spring:
       static-locations: classpath:/static/,file:/Users/lukas/uploads
 app:
   storage:
-    location: /Users/lukas/uploads
+    location: uploads

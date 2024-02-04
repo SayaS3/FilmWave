@@ -36,6 +36,7 @@ public class MovieController {
         this.commentService = commentService;
         this.userService = userService;
     }
+
     @GetMapping("/search")
     public String searchMovies(@RequestParam("query") String query,
                                @RequestParam(defaultValue = "1") int page,
@@ -55,6 +56,7 @@ public class MovieController {
 
         return "movie-listing";
     }
+
     @GetMapping("/movie/{id}")
     public String getMovie(@PathVariable long id,
                            Model model,
@@ -62,7 +64,7 @@ public class MovieController {
 
         List<CommentDto> allComments = commentService.getCommentsByMovie(id);
 
-        // Filtruj komentarze, usuwając te od shadowbanned użytkowników, ale pozwalaj na zobaczenie własnych komentarzy
+
         String currentUser = (authentication != null) ? authentication.getName() : null;
 
         List<CommentDto> filteredComments = allComments.stream()
