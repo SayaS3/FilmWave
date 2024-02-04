@@ -11,9 +11,9 @@
     <h2 class="list-heading">Add a new movie</h2>
     <form action="#" th:action="@{/admin/add-movie}" method="post" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
         <label for="title">Title</label>
-        <input type="text" id="title" placeholder="Sample title" th:field="*{title}">
+        <input type="text" id="title" placeholder="Sample title" th:field="*{title}" maxlength="100">
         <label for="originalTitle">Original Title</label>
-        <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}">
+        <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}" maxlength="100">
         <label for="releaseYear">
             Year of release</label>
         <input type="number" id="releaseYear" placeholder="2019" th:field="*{releaseYear}">
@@ -28,11 +28,11 @@
         <label for="poster">Poster</label>
         <input type="file" id="poster" th:field="*{poster}" accept="image/png, image/jpeg">
         <label for="trailerId">Youtube trailer ID</label>
-        <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}">
+        <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}" maxlength="20">
         <label for="shortDescription">Short description - max 200 characters</label>
-        <textarea id="shortDescription" rows="5" th:field="*{shortDescription}"></textarea>
-        <label for="description">Full descripion</label>
-        <textarea id="description" rows="10" th:field="*{description}"></textarea>
+        <textarea id="shortDescription" rows="5" th:field="*{shortDescription}" maxlength="200"></textarea>
+        <label for="description">Full description</label>
+        <textarea id="description" rows="10" th:field="*{description}" maxlength="9999"></textarea>
         <button type="submit">Add</button>
     </form>
 </main>

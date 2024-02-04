@@ -28,6 +28,7 @@ class MovieDtoMapper {
                 movie.isPromoted(),
                 movie.getPoster(),
                 avgRating,
-                ratingCount);
+                ratingCount,
+                movie.isApproved());
     }
 }

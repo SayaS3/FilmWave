@@ -28,15 +28,14 @@ public class MovieManagementController {
     @GetMapping("/add-movie")
     public String addMovieForm(Model model) {
         List<GenreDto> allGenres = genreService.findAllGenres();
-        model.addAttribute("genres", allGenres);
         MovieSaveDto movie = new MovieSaveDto();
         model.addAttribute("movie", movie);
+        model.addAttribute("genres", allGenres);
         return "admin/movie-form";
     }
     @GetMapping("/edit-movie/{id}")
     public String editMovieForm(@PathVariable Long id, Model model) {
         Optional<MovieDto> movieOptional = movieService.findMovieById(id);
-
         if (movieOptional.isPresent()) {
             MovieDto existingMovie = movieOptional.get();
             List<GenreDto> allGenres = genreService.findAllGenres();
@@ -63,6 +62,14 @@ public class MovieManagementController {
         redirectAttributes.addFlashAttribute(
                 AdminController.NOTIFICATION_ATTRIBUTE,
                 "Movie %s has been updated.".formatted(movie.getTitle()));
+        return "redirect:/movie/{id}";
+    }
+    @PutMapping("/approve-movie/{id}")
+    public String approveMovie(@PathVariable Long id, MovieSaveDto movie, RedirectAttributes redirectAttributes) {
+        movieService.approveMovie(id, movie);
+        redirectAttributes.addFlashAttribute(
+                AdminController.NOTIFICATION_ATTRIBUTE,
+                "Movie %s has been approved.".formatted(movie.getTitle()));
         return "redirect:/movie/{id}";
     }
     @DeleteMapping("/delete-movie/{id}")

@@ -23,6 +23,7 @@
                              referencedTableName="genre"
                              referencedColumnNames="id"/>
             </column>
+            <column name="approved" type="BOOLEAN"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

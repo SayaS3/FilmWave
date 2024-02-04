@@ -29,6 +29,7 @@ public class Movie {
 
     private boolean promoted;
     private String poster;
+    private boolean approved;
 
     public Long getId() {
         return id;
@@ -40,6 +41,18 @@ public class Movie {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public void setTitle(String title) {

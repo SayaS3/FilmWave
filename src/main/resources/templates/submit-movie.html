@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Submit movie</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+  <h2 class="list-heading">Submit a movie</h2>
+  <p class="notification-bar" th:if="${notification}" th:text="${notification}">
+    Notifications
+  </p>
+  <form action="#" th:action="@{/submit-movie}" method="post" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
+    <label for="title">Title</label>
+    <input type="text" id="title" placeholder="Sample title" th:field="*{title}">
+    <label for="originalTitle">Original Title</label>
+    <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}">
+    <label for="releaseYear">
+      Year of release</label>
+    <input type="number" id="releaseYear" placeholder="2019" th:field="*{releaseYear}">
+    <label for="genre">Genre</label>
+    <select class="selection" id="genre" th:field="*{genre}" required>
+      <option value="" hidden>Choose a genre</option>
+      <option th:each="genre: ${genres}" th:value="${genre.name}" th:text="${genre.name}"></option>
+    </select>
+    <label for="poster">Poster</label>
+    <input type="file" id="poster" th:field="*{poster}" accept="image/png, image/jpeg">
+    <label for="trailerId">Youtube trailer ID</label>
+    <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}" maxlength="20">
+    <label for="shortDescription">Short description - max 200 characters</label>
+    <textarea id="shortDescription" rows="5" th:field="*{shortDescription}" maxlength="200"></textarea>
+    <label for="description">Full descripion</label>
+    <textarea id="description" rows="10" th:field="*{description}" maxlength="9999"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+</body>
+</html>

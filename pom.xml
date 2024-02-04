@@ -6,15 +6,15 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.sayas</groupId>
-	<artifactId>MovieClub</artifactId>
+	<artifactId>FilmHub</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>FilmHub</name>
 	<description>FilmHub</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

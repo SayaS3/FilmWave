@@ -2,14 +2,13 @@ package com.sayas.filmhub.web;
 
 import com.sayas.filmhub.domain.comment.CommentService;
 import com.sayas.filmhub.domain.comment.dto.CommentDto;
+import com.sayas.filmhub.domain.genre.dto.GenreDto;
 import com.sayas.filmhub.domain.movie.MovieService;
 import com.sayas.filmhub.domain.movie.dto.MovieDto;
+import com.sayas.filmhub.domain.movie.dto.MovieSaveDto;
 import com.sayas.filmhub.domain.rating.RatingService;
 import com.sayas.filmhub.domain.user.UserService;
 import javassist.NotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -38,23 +37,14 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public String searchMovies(@RequestParam("query") String query,
-                               @RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "10") int size,
-                               Model model) {
-        page = Math.max(page, 0);
-
-        Pageable pageable = PageRequest.of(page, size).previousOrFirst();
-
-        Page<MovieDto> searchResultsPage = movieService.searchMovies(query, pageable);
+    public String searchMovies(@RequestParam("query") String query, Model model) {
+        List<MovieDto> searchResults = movieService.searchMovies(query);
 
         model.addAttribute("heading", "Search Results");
         model.addAttribute("description", "Search results for: " + query);
-        model.addAttribute("movies", searchResultsPage.getContent());
-        model.addAttribute("currentPage", searchResultsPage.getNumber());
-        model.addAttribute("totalPages", searchResultsPage.getTotalPages());
+        model.addAttribute("movies", searchResults);
 
-        return "movie-listing";
+        return "search-movies";
     }
 
     @GetMapping("/movie/{id}")
@@ -62,55 +52,51 @@ public class MovieController {
                            Model model,
                            Authentication authentication) {
 
-        List<CommentDto> allComments = commentService.getCommentsByMovie(id);
+        try {
+            long movieId = Long.parseLong(String.valueOf(id));
+
+            MovieDto movie = movieService.findMovieById(movieId)
+                    .filter(MovieDto::isApproved)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 
-        String currentUser = (authentication != null) ? authentication.getName() : null;
+            List<CommentDto> allComments = commentService.getCommentsByMovie(id);
 
-        List<CommentDto> filteredComments = allComments.stream()
-                .filter(comment -> {
-                    try {
-                        boolean isCurrentUserComment = currentUser != null && currentUser.equals(comment.getUsername());
-                        return !userService.isShadowBanned(comment.getUserId()) || isCurrentUserComment;
-                    } catch (NotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .collect(Collectors.toList());
+            String currentUser = (authentication != null) ? authentication.getName() : null;
 
-        MovieDto movie = movieService.findMovieById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            List<CommentDto> filteredComments = allComments.stream()
+                    .filter(comment -> {
+                        try {
+                            boolean isCurrentUserComment = currentUser != null && currentUser.equals(comment.getUsername());
+                            return !userService.isShadowBanned(comment.getUserId()) || isCurrentUserComment;
+                        } catch (NotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
 
-        model.addAttribute("movie", movie);
-        model.addAttribute("comments", filteredComments);
+            model.addAttribute("movie", movie);
+            model.addAttribute("comments", filteredComments);
 
-        // Jeżeli użytkownik jest zalogowany
-        if (authentication != null) {
-            Integer rating = ratingService.getUserRatingForMovie(currentUser, id).orElse(0);
-            model.addAttribute("userRating", rating);
+            if (authentication != null && authentication.isAuthenticated()) {
+                Integer rating = ratingService.getUserRatingForMovie(currentUser, id).orElse(0);
+                model.addAttribute("userRating", rating);
+            }
+            return "movie";
+        } catch (NumberFormatException e) {
+            // Obsługa błędu, gdy identyfikator nie jest liczbą
+            model.addAttribute("errorMessage", "Invalid movie ID");
+            return "error/404"; // Możesz utworzyć stronę z informacją o błędzie
         }
-        return "movie";
     }
 
     @GetMapping("/top10")
-    public String findTop10(@RequestParam(defaultValue = "0") int page,
-                            @RequestParam(defaultValue = "10") int size,
-                            Model model) {
-        if (page < 0) {
-            page = 0;
-        }
-
-        Pageable pageable = PageRequest.of(page, size);
-
-        Page<MovieDto> top10MoviesPage = movieService.findTopMovies(pageable);
-
-
+    public String findTop10(Model model) {
+        List<MovieDto> top10Movies = movieService.findTop10Movies();
         model.addAttribute("heading", "Top 10 Movies");
         model.addAttribute("description", "Movies highly rated by users");
-        model.addAttribute("movies", top10MoviesPage.getContent());
-        model.addAttribute("currentPage", top10MoviesPage.getNumber());
-        model.addAttribute("totalPages", top10MoviesPage.getTotalPages());
+        model.addAttribute("movies", top10Movies);
 
-        return "movie-listing";
+        return "top10-movies";
     }
 }

@@ -1,5 +1,6 @@
 package com.sayas.filmhub.domain.movie;
 
+import com.opencsv.bean.CsvToBean;
 import com.sayas.filmhub.domain.genre.Genre;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,15 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Movie> findAllByPromotedIsTrue(Pageable pageable);
     Page<Movie> findByGenreName(String genreName, Pageable pageable);
-    @Query("select m from Movie m join m.ratings r group by m order by avg(r.rating) desc")
-    Page<Movie> findTopByRating(Pageable pageable);
-    List<Movie> findAllByGenre(Genre genre);
 
-    Page<Movie> findByTitleContainingIgnoreCase(String query, Pageable pageable);
+    List<Movie> findAllByGenre(Genre genre);
+    List<Movie> findByApprovedFalse();
+    List<Movie> findByTitleContainingIgnoreCase(String query);
+
+    @Query("SELECT m FROM Movie m JOIN m.ratings r GROUP BY m ORDER BY AVG(r.rating) DESC LIMIT 10")
+    List<Movie> findTopByRatingAndApproved(boolean approved);
+
+    List<Movie> findByTitleContainingIgnoreCaseAndApproved(String query, boolean b);
 }
+
 

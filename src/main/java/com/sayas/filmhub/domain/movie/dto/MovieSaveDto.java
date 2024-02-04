@@ -12,6 +12,15 @@ public class MovieSaveDto {
     private String genre;
     private boolean promoted;
     private MultipartFile poster;
+    private boolean approved;
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
 
     public String getTitle() {
         return title;

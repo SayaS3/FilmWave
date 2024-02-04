@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,7 +26,8 @@ public class MovieService {
     private final CommentRepository commentRepository;
     private final FileStorageService fileStorageService;
 
-    public MovieService(MovieRepository movieRepository, ErrorReportRepository errorReportRepository, GenreRepository genreRepository, CommentRepository commentRepository, FileStorageService fileStorageService) {
+    public MovieService(MovieRepository movieRepository, ErrorReportRepository errorReportRepository, GenreRepository genreRepository,
+                        CommentRepository commentRepository, FileStorageService fileStorageService) {
         this.movieRepository = movieRepository;
         this.errorReportRepository = errorReportRepository;
         this.genreRepository = genreRepository;
@@ -54,6 +57,26 @@ public class MovieService {
         movie.setYoutubeTrailerId(movieToSave.getYoutubeTrailerId());
         Genre genre = genreRepository.findByNameIgnoreCase(movieToSave.getGenre()).orElseThrow();
         movie.setGenre(genre);
+        movie.setApproved(true);
+        if (movieToSave.getPoster() != null && !movieToSave.getPoster().isEmpty()) {
+            String savedFileName = fileStorageService.saveImage(movieToSave.getPoster());
+            movie.setPoster(savedFileName);
+        }
+        movieRepository.save(movie);
+    }
+    @Transactional
+    public void submitMovie(MovieSaveDto movieToSave) {
+        Movie movie = new Movie();
+        movie.setTitle(movieToSave.getTitle());
+        movie.setOriginalTitle(movieToSave.getOriginalTitle());
+        movie.setPromoted(false);
+        movie.setReleaseYear(movieToSave.getReleaseYear());
+        movie.setShortDescription(movieToSave.getShortDescription());
+        movie.setDescription(movieToSave.getDescription());
+        movie.setYoutubeTrailerId(movieToSave.getYoutubeTrailerId());
+        Genre genre = genreRepository.findByNameIgnoreCase(movieToSave.getGenre()).orElseThrow();
+        movie.setGenre(genre);
+        movie.setApproved(false);
         if (movieToSave.getPoster() != null && !movieToSave.getPoster().isEmpty()) {
             String savedFileName = fileStorageService.saveImage(movieToSave.getPoster());
             movie.setPoster(savedFileName);
@@ -61,8 +84,8 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public Page<MovieDto> findTopMovies(Pageable pageable) {
-        return movieRepository.findTopByRating(pageable).map(MovieDtoMapper::map);
+    public List<MovieDto> findTop10Movies() {
+        return movieRepository.findTopByRatingAndApproved(true).stream().map(MovieDtoMapper::map).collect(Collectors.toList());
     }
 
 
@@ -89,7 +112,30 @@ public class MovieService {
             throw new RuntimeException("Movie not found with id: " + id);
         }
     }
-
+    @Transactional
+    public void approveMovie(Long id, MovieSaveDto movieChanged) {
+        Optional<Movie> optionalMovie = movieRepository.findById(id);
+        if (optionalMovie.isPresent()) {
+            Movie movie = optionalMovie.get();
+            Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
+                    .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
+            movie.setTitle(movieChanged.getTitle());
+            movie.setOriginalTitle(movieChanged.getOriginalTitle());
+            movie.setShortDescription(movieChanged.getShortDescription());
+            movie.setDescription(movieChanged.getDescription());
+            movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
+            movie.setApproved(true);
+            if (movieChanged.getPoster() != null && !movieChanged.getPoster().isEmpty()) {
+                String savedFileName = fileStorageService.saveImage(movieChanged.getPoster());
+                movie.setPoster(savedFileName);
+            }
+            movie.setGenre(genre);
+            movie.setReleaseYear(movieChanged.getReleaseYear());
+            movieRepository.save(movie);
+        } else {
+            throw new RuntimeException("Movie not found with id: " + id);
+        }
+    }
 
     @Transactional
     public void deleteMovie(Long id) {
@@ -100,8 +146,10 @@ public class MovieService {
         });
     }
 
-    public Page<MovieDto> searchMovies(String query, Pageable pageable) {
-        return movieRepository.findByTitleContainingIgnoreCase(query, pageable).map(MovieDtoMapper::map);
+    public List<MovieDto> searchMovies(String query) {
+        return movieRepository.findByTitleContainingIgnoreCaseAndApproved(query, true).stream()
+                .map(MovieDtoMapper::map)
+                .collect(Collectors.toList());
     }
 
     public Page<MovieDto> findMoviesByGenreNameWithPagination(String genreName, Pageable pageable) {
@@ -109,4 +157,7 @@ public class MovieService {
     }
 
 
+    public List<MovieDto> findMoviesByNotApproved() {
+        return movieRepository.findByApprovedFalse().stream().map(MovieDtoMapper::map).toList();
+    }
 }

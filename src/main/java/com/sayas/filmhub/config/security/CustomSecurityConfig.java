@@ -35,6 +35,7 @@ public class CustomSecurityConfig {
                         .requestMatchers(mvc.pattern("/shadow-ban/**")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE)
                         .requestMatchers(mvc.pattern("/rate-movie")).authenticated()
                         .requestMatchers(mvc.pattern("/add-comment")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
+                        .requestMatchers(mvc.pattern("/submit-movie")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(mvc.pattern("/report-error")).hasAnyRole(EDITOR_ROLE, ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(toH2Console()).hasAnyRole(ADMIN_ROLE)
                         .anyRequest().permitAll()

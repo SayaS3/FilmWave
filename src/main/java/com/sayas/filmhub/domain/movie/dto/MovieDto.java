@@ -17,18 +17,9 @@ public class MovieDto {
     private double avgRating;
     private int ratingCount;
 
-    public MovieDto(Long id,
-                    String title,
-                    String originalTitle,
-                    String shortDescription,
-                    String description,
-                    String youtubeTrailerId,
-                    Integer releaseYear,
-                    String genre,
-                    boolean promoted,
-                    String poster,
-                    Double avgRating,
-                    int ratingCount) {
+    private boolean approved;
+
+    public MovieDto(Long id, String title, String originalTitle, String shortDescription, String description, String youtubeTrailerId, Integer releaseYear, String genre, Boolean promoted, String poster, double avgRating, int ratingCount, boolean approved) {
         this.id = id;
         this.title = title;
         this.originalTitle = originalTitle;
@@ -41,6 +32,7 @@ public class MovieDto {
         this.poster = poster;
         this.avgRating = avgRating;
         this.ratingCount = ratingCount;
+        this.approved = approved;
     }
 
     public Long getId() {
@@ -49,6 +41,25 @@ public class MovieDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getPromoted() {
+        return promoted;
+    }
+
+    public void setPromoted(Boolean promoted) {
+        this.promoted = promoted;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+    public boolean isNotApproved() {
+        return approved=false;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public String getTitle() {

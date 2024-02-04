@@ -11,11 +11,10 @@
     <h2 class="list-heading">Edit Movie</h2>
     <form action="#" th:action="@{|/admin/edit-movie/${movie.id}|}" th:method="put" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
         <input type="hidden" id="id" th:field="*{id}" th:value="${movie.id}">
-        <!-- other fields... -->
         <label for="title">Title</label>
-        <input type="text" id="title" placeholder="Sample title" th:field="*{title}" th:value="${movie.title}">
+        <input type="text" id="title" placeholder="Sample title" th:field="*{title}" th:value="${movie.title}" maxlength="100">
         <label for="originalTitle">Original Title</label>
-        <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}" th:value="${movie.originalTitle}">
+        <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}" th:value="${movie.originalTitle}" maxlength="100">
         <label for="releaseYear">Year of release</label>
         <input type="number" id="releaseYear" placeholder="2019" th:field="*{releaseYear}" th:value="${movie.releaseYear}">
         <label for="genre">Genre</label>
@@ -28,7 +27,7 @@
         <label for="poster">Poster</label>
         <input type="file" id="poster" th:field="*{poster}" accept="image/png, image/jpeg">
         <label for="trailerId">Youtube trailer ID</label>
-        <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}" th:value="${movie.youtubeTrailerId}">
+        <input type="text" id="trailerId" placeholder="abcdefgh" th:field="*{youtubeTrailerId}" th:value="${movie.youtubeTrailerId}" maxlength="20">
         <label for="shortDescription">Short description - max 200 characters</label>
         <textarea id="shortDescription" rows="5" th:field="*{shortDescription}" th:text="${movie.shortDescription}" maxlength="200"></textarea>
         <label for="description">Full description</label>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<head>
+    <!-- Ustawiamy tytuł -->
+    <title th:text="|${movie.title} - FilmHub|">Title of the Movie - FilmHub</title>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="list-heading" >Submitted movie</h2>
+    <main class="main-content" layout:fragment="content">
+        <section class="movie">
+            <div class="movie-summary">
+                <img src="../static/img/poster-placeholder.png"
+                     th:src="${movie.poster ne null} ? @{|/img/${movie.poster}|} : @{/img/poster-placeholder.png}"
+                     alt="movie title"
+                     th:alt="${movie.title}"
+                     class="movie-summary-cover"
+                />
+
+                <!-- Movie information -->
+                <div class="movie-summary-info">
+                    <p sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')">
+                        <a href="#" th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+                    </p>
+                    <h2 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h2>
+                    <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the Rings</p>
+                    <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
+                    <!-- Set link to the genre page, e.g., /genre/fantasy -->
+                    <p class="movie-summary-item">Genre: <a href="#"
+                                                            th:href="@{|/genre/${movie.genre}|}"
+                                                            th:text="${movie.genre}">Fantasy</a>
+                    </p>
+                    <p class="movie-summary-item" th:text="${movie.shortDescription}">
+                        The journey of a brave hobbit and his companions in search of the ring.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+        <!-- Trailer -->
+        <section class="movie-trailer-container movie-section">
+            <h2 class="movie-section-heading">Trailer</h2>
+            <!-- Set the movie trailer URL -->
+            <iframe width="560" height="315" class="movie-trailer"
+                    src="https://www.youtube.com/embed/V75dMMIW2B4"
+                    th:src="|https://www.youtube.com/embed/${movie.youtubeTrailerId}|"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </section>
+        <!-- Description -->
+        <section class="movie-section">
+            <h2 class="movie-section-heading">Description</h2>
+            <!-- Set the full description -->
+            <p th:text="${movie.description}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                ante sollicitudin.
+                Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                vulputate fringilla.
+                Donec lacinia congue felis in faucibus.</p>
+        </section>
+        <section class="movie-section">
+            <form th:action="@{|/admin/delete-movie/${movie.id}|}" th:method="delete">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?');"
+                        class="delete-button">Delete
+                </button>
+            </form>
+            <form th:action="@{|/admin/approve-movie/${movie.id}|}" th:method="put" enctype="multipart/form-data">
+                <input type="hidden" name="title" th:value="${movie.title}">
+                <input type="hidden" name="originalTitle" th:value="${movie.originalTitle}">
+                <input type="hidden" name="releaseYear" th:value="${movie.releaseYear}">
+                <input type="hidden" name="genre" th:value="${movie.genre}">
+                <input type="hidden" name="shortDescription" th:value="${movie.shortDescription}">
+                <input type="hidden" name="description" th:value="${movie.description}">
+                <input type="hidden" name="youtubeTrailerId" th:value="${movie.youtubeTrailerId}">
+                <input th:unless="${movie.poster}" type="file" name="poster" accept="image/png, image/jpeg">
+                <button type="submit" class="delete-button">Approve</button>
+            </form>
+        </section>
+
+    </main>
+</div>
+</body>
+</html>

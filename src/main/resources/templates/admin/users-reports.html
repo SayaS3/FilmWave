@@ -13,7 +13,7 @@
     <ul class="error-reports-list">
         <li th:each="report : ${errorReports}" class="error-report">
             <div class="report-header">
-                <p class="username">Username: <span th:text="${report.user.username}"></span></p>
+                <p class="username">Username: <a th:href="@{'/user/' + ${report.user.username}}" th:text="${report.user.username}"></a></p>
                 <p class="movie-title">Movie Title: <span th:text="${report.movie.title}"></span></p>
             </div>
             <p >Error Description: <p class="report-description" th:text="${report.errorDescription}"></p></p>

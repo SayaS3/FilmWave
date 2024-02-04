@@ -18,7 +18,11 @@
 
         <h2 class="ratings-heading">Ratings</h2>
         <ul class="ratings-list" th:each="rating : ${userRatings}">
-            <li class="movie-title" th:text="'Movie: ' + ${rating.movie.title}"></li>
+            <li class="movie-title">
+                <a th:href="@{'/movie/' + ${rating.movie.id}}">
+                    <span th:text="'Movie: ' + ${rating.movie.title}"></span>
+                </a>
+            </li>
             <img src="../static/img/poster-placeholder.png"
                  th:src="${rating.movie.poster ne null} ? @{|/img/${rating.movie.poster}|} : @{/img/poster-placeholder.png}"
                  alt="movie title"

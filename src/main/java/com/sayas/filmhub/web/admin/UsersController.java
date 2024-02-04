@@ -22,7 +22,7 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/view-users")
+    @GetMapping("/users")
     public String viewUsers(Model model, @RequestParam(defaultValue = "0") int page,
                             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);

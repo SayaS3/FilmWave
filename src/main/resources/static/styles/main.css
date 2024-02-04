@@ -141,8 +141,9 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Plakat - usuniecie paddingu*/
 .movie-list-item-poster {
-    display: block;
-    max-width: 200px;
+    width: 200px;
+    height: 300px; /* Dostosuj wysokość do swoich potrzeb */
+    object-fit: cover;
 }
 
 /*Karta filmu*/
@@ -194,30 +195,6 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Listing END*/
 
-/*Jumbotron START*/
-
-.jumbotron {
-    background-image: url("../img/jumbotron.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem;
-    text-align: center;
-    position: relative; /* Ustaw pozycję względną, aby pseudoelement ::before był pozycjonowany w odniesieniu do tego kontenera */
-    color: #fff;
-/
-}
-
-.jumbotron-header {
-    font-size: 3rem;
-    margin: 1rem 0;
-}
-
-.jumbotron-description {
-    font-size: 1.2rem;
-}
-
-/*Jumbotron END*/
-
 /*/ SEARCH*/
 .form-search {
     position: relative;
@@ -268,8 +245,9 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Mniejsza okładka na małych ekranach*/
 .movie-summary-cover {
-    object-fit: contain;
-    max-width: 200px;
+    width: 200px;
+    height: 300px; /* Dostosuj wysokość do swoich potrzeb */
+    object-fit: cover;
 }
 
 /*Odstęp informacji o filmie od okładki*/

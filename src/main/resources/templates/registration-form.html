@@ -10,11 +10,11 @@
 <body>
 <main class="main-content" layout:fragment="content">
   <h2 class="list-heading">Register</h2>
-  <p th:text="${emailExistsError}" class="mc-form-message" style="color: red;">
+  <p th:text="${emailExistsError}" class="mc-form-message">
     ${emailExistsError}
   </p>
 
-  <p th:text="${usernameExistsError}" class="mc-form-message" style="color: red;">
+  <p th:text="${usernameExistsError}" class="mc-form-message">
     ${usernameExistsError}
   </p>
   <form action="#" th:action="@{/registration}" method="post" class="mc-form" th:object="${user}">

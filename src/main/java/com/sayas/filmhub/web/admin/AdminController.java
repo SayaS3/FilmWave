@@ -2,7 +2,6 @@ package com.sayas.filmhub.web.admin;
 
 import com.sayas.filmhub.domain.errorreport.ErrorReport;
 import com.sayas.filmhub.domain.errorreport.ErrorReportService;
-import com.sayas.filmhub.domain.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,12 +25,13 @@ class AdminController {
     public String getAdminPanel() {
         return "admin/admin";
     }
-    @GetMapping("/view-reports")
+    @GetMapping("/reports")
     public String viewErrorReports(Model model) {
         List<ErrorReport> errorReports = errorReportService.getAllErrorReports();
         model.addAttribute("errorReports", errorReports);
-        return "admin/view-reports";
+        return "/admin/users-reports";
     }
+
     @DeleteMapping("/delete-report/{id}")
     public String reportError(@RequestParam Long id) {
         errorReportService.deleteReport(id);
