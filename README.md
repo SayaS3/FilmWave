@@ -35,10 +35,9 @@ FilmHub is a dynamic web application crafted using Java Spring, Thymeleaf, and S
 - **Public User Profile:** View public profiles of users, including their rated movies.
 - **User Administration:** Administrators can manage users and block accounts if necessary.
 - **Pagination:** for better navigation, especially with a large number of movies.
+- **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
 ## Planned Features
-
-- **Edit User Profile:** Users can edit their profile information, such as changing email addresses or passwords.
 
 - **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
