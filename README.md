@@ -40,8 +40,6 @@ FilmHub is a dynamic web application crafted using Java Spring, Thymeleaf, and S
 
 - **Edit User Profile:** Users can edit their profile information, such as changing email addresses or passwords.
 
-- **Account Activation:** Activate user accounts through email confirmation after registration.
-
 - **User-Submitted Movies:** Allow users to submit new movies, with approval by editors or administrators.
 
 
