@@ -1,4 +1,3 @@
-/*CSS reset*/
 :root {
     --light-grey: #b4cef1;
     --more-light-grey: #709cff;
@@ -12,13 +11,11 @@
     color: white;
 }
 
-
-/*Zmiana domyślnego fontu*/
 body {
     font-family: 'Poppins', serif;
 }
 
-/*Ustawienie koloru odnośników i usunięcie podkreśleń*/
+
 a {
     text-decoration: none;
     color: var(--light-grey);
@@ -57,9 +54,7 @@ textarea:focus {
     border-color: var(--light-grey); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
 }
 
-/*Kolor tła w głównym kontenerze i ustawienie elastycznego rozkładu
-Elementy będą ustawiane jeden pod drugim
-*/
+
 .container {
     display: flex;
     flex-direction: column;
@@ -67,15 +62,12 @@ Elementy będą ustawiane jeden pod drugim
     background-color: var(--grey);
 }
 
-/*Główna sekcja powinna być skalowana wraz z rozciąganiem okna przeglądarki
-i powinna zajmować większość dostępnej przestrzeni
-*/
+
 .main-content {
     flex: 1;
 }
 
 /*MENU START*/
-/*Kolor logotypu i przycisku rozwijającego menu*/
 .fa-wave-square,
 #toggle-icon {
     color: var(--light-grey);
@@ -358,7 +350,6 @@ i powinna zajmować większość dostępnej przestrzeni
     border-radius: 10px; /* Slightly increased border-radius */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
 }
-
 
 
 /*Wyśrodkowanie tekstu Twoja ocena*/
@@ -746,6 +737,15 @@ h1 {
         font-size: 1.2rem;
         margin: 0 4px;
     }
+}
+@media only screen and (max-width: 1392px) {
+
+    /*Dodajemy rozkład elastyczny, elementy będą wyświetlane w jednym wierszu*/
+    .movie-list {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 
 
