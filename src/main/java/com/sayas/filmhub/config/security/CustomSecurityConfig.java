@@ -51,10 +51,7 @@ public class CustomSecurityConfig {
                 )
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers(toH2Console())
-                        .ignoringRequestMatchers("/delete-comment")
-                        .ignoringRequestMatchers("/report-error")
-                        .ignoringRequestMatchers("/add-comment"));
+                        .ignoringRequestMatchers(toH2Console()));
 
 
         return http.build();

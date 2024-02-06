@@ -49,7 +49,7 @@ public class MovieService {
     public void addMovie(MovieSaveDto movieToSave) {
         Movie movie = new Movie();
         movie.setTitle(movieToSave.getTitle());
-        movie.setOriginalTitle(movieToSave.getOriginalTitle());
+
         movie.setPromoted(movieToSave.isPromoted());
         movie.setReleaseYear(movieToSave.getReleaseYear());
         movie.setShortDescription(movieToSave.getShortDescription());
@@ -64,11 +64,12 @@ public class MovieService {
         }
         movieRepository.save(movie);
     }
+
     @Transactional
     public void submitMovie(MovieSaveDto movieToSave) {
         Movie movie = new Movie();
         movie.setTitle(movieToSave.getTitle());
-        movie.setOriginalTitle(movieToSave.getOriginalTitle());
+
         movie.setPromoted(false);
         movie.setReleaseYear(movieToSave.getReleaseYear());
         movie.setShortDescription(movieToSave.getShortDescription());
@@ -97,7 +98,7 @@ public class MovieService {
             Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
                     .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
             movie.setTitle(movieChanged.getTitle());
-            movie.setOriginalTitle(movieChanged.getOriginalTitle());
+
             movie.setShortDescription(movieChanged.getShortDescription());
             movie.setDescription(movieChanged.getDescription());
             movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
@@ -112,6 +113,7 @@ public class MovieService {
             throw new RuntimeException("Movie not found with id: " + id);
         }
     }
+
     @Transactional
     public void approveMovie(Long id, MovieSaveDto movieChanged) {
         Optional<Movie> optionalMovie = movieRepository.findById(id);
@@ -120,7 +122,7 @@ public class MovieService {
             Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
                     .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
             movie.setTitle(movieChanged.getTitle());
-            movie.setOriginalTitle(movieChanged.getOriginalTitle());
+
             movie.setShortDescription(movieChanged.getShortDescription());
             movie.setDescription(movieChanged.getDescription());
             movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());

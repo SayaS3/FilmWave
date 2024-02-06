@@ -5,7 +5,7 @@
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
   <meta charset="UTF-8">
-  <title>FilmHub</title>
+  <title>FilmWave</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -13,6 +13,7 @@
         referrerpolicy="no-referrer"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
   <script defer src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
@@ -23,25 +24,25 @@
   <ul class="menu">
     <li class="menu-logo-container">
       <a href="#" th:href="@{/}">
-        <i class="fa-solid fa-video"></i></i> FilmHub
+        <i class="fas fa-wave-square"></i></i> FilmWave
       </a>
-      <div class="search-tool">
-        <form th:action="@{/search}" method="get" class="form-search">
-          <label>
-            <input type="text" name="query" placeholder="Search movies..." class="search-text-input" maxlength="255">
-          </label>
-          <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
     </li>
+    <div class="search-tool">
+      <form th:action="@{/search}" method="get" class="form-search">
+        <label>
+          <input type="text" name="query" class="search-text-input" maxlength="255">
+        </label>
+        <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
     <li class="menu-toggle">
-      <a href="#"><i id="toggle-icon" class="far fa-plus-square"></i></a>
+      <a href="#"><i id="toggle-icon" class="fas fa-bars"></i></a>
     </li>
     <li class="menu-item">
       <a href="#" th:href="@{/genres}">Genres</a>
     </li>
     <li class="menu-item">
-      <a href="#" th:href="@{/top10}">Top10</a>
+      <a href="#" th:href="@{/top10}">Top 10</a>
     </li>
     <li class="menu-item" sec:authorize="hasAnyRole('ADMIN','EDITOR')">
       <a href="#" th:href="@{/admin}">Administration</a>
@@ -57,7 +58,7 @@
   <main class="main-content" layout:fragment="content">
   </main>
   <footer class="footer">
-    <p>FilmHub 2024 <i class="fas fa-copyright"></i></p>
+    <p>FilmWave 2024 <i class="fas fa-copyright"></i></p>
     <a sec:authorize="hasAnyRole('ADMIN','EDITOR','USER')" th:href="@{/submit-movie}">Submit a Movie</a>
   </footer>
 </div>

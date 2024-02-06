@@ -19,7 +19,6 @@ class MovieDtoMapper {
         return new MovieDto(
                 movie.getId(),
                 movie.getTitle(),
-                movie.getOriginalTitle(),
                 movie.getShortDescription(),
                 movie.getDescription(),
                 movie.getYoutubeTrailerId(),

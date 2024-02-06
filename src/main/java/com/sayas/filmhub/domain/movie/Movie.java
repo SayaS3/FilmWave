@@ -16,7 +16,6 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String originalTitle;
     private String shortDescription;
     private String description;
     private String youtubeTrailerId;
@@ -43,9 +42,6 @@ public class Movie {
         return title;
     }
 
-    public void setRatings(Set<Rating> ratings) {
-        this.ratings = ratings;
-    }
 
     public boolean isApproved() {
         return approved;
@@ -57,14 +53,6 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
     }
 
     public String getShortDescription() {

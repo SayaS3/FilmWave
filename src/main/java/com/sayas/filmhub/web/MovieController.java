@@ -39,7 +39,6 @@ public class MovieController {
     @GetMapping("/search")
     public String searchMovies(@RequestParam("query") String query, Model model) {
         List<MovieDto> searchResults = movieService.searchMovies(query);
-
         model.addAttribute("heading", "Search Results");
         model.addAttribute("description", "Search results for: " + query);
         model.addAttribute("movies", searchResults);

@@ -11,8 +11,8 @@
 	<groupId>com.sayas</groupId>
 	<artifactId>FilmHub</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FilmHub</name>
-	<description>FilmHub</description>
+	<name>FilmWave</name>
+	<description>FilmWave</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

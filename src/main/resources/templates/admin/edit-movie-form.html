@@ -13,8 +13,6 @@
         <input type="hidden" id="id" th:field="*{id}" th:value="${movie.id}">
         <label for="title">Title</label>
         <input type="text" id="title" placeholder="Sample title" th:field="*{title}" th:value="${movie.title}" maxlength="100">
-        <label for="originalTitle">Original Title</label>
-        <input type="text" id="originalTitle" placeholder="Example title" th:field="*{originalTitle}" th:value="${movie.originalTitle}" maxlength="100">
         <label for="releaseYear">Year of release</label>
         <input type="number" id="releaseYear" placeholder="2019" th:field="*{releaseYear}" th:value="${movie.releaseYear}">
         <label for="genre">Genre</label>

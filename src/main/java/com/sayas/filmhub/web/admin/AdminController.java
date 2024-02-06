@@ -35,6 +35,6 @@ class AdminController {
     @DeleteMapping("/delete-report/{id}")
     public String reportError(@RequestParam Long id) {
         errorReportService.deleteReport(id);
-        return "redirect:/admin/view-reports" ;
+        return "redirect:/admin/reports" ;
     }
 }

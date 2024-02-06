@@ -37,16 +37,16 @@ public class UsersController {
     @PutMapping("/shadow-ban/{userName}")
     public String shadowBan(@PathVariable String userName) throws NotFoundException {
         userService.shadowBan(userName);
-        return "redirect:/admin/view-users";
+        return "redirect:/admin/users";
     }
     @PutMapping("/unban/{userName}")
     public String unBan(@PathVariable String userName) throws NotFoundException {
         userService.unban(userName);
-        return "redirect:/admin/view-users";
+        return "redirect:/admin/users";
     }
     @DeleteMapping("/delete/{userName}")
     public String deleteUser(@PathVariable String userName) throws NotFoundException {
         userService.deleteUser(userName);
-        return "redirect:/admin/view-users";
+        return "redirect:/admin/users";
     }
 }

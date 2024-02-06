@@ -17,7 +17,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findAllByGenre(Genre genre);
     List<Movie> findByApprovedFalse();
-    List<Movie> findByTitleContainingIgnoreCase(String query);
+    List<Movie> findMoviesByIdAndApprovedIsFalse(Long id);
 
     @Query("SELECT m FROM Movie m JOIN m.ratings r GROUP BY m ORDER BY AVG(r.rating) DESC LIMIT 10")
     List<Movie> findTopByRatingAndApproved(boolean approved);

@@ -1,7 +1,9 @@
 /*CSS reset*/
 :root {
-    --orange: rgb(255, 206, 0);
-    --grey: #181815;
+    --light-grey: #b4cef1;
+    --more-light-grey: #709cff;
+    --grey: #11151C;
+    --dark-grey: #11121c;
 }
 
 * {
@@ -9,48 +11,50 @@
     padding: 0;
     color: white;
 }
-textarea {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
+
+
 /*Zmiana domyślnego fontu*/
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', serif;
 }
 
 /*Ustawienie koloru odnośników i usunięcie podkreśleń*/
 a {
     text-decoration: none;
-    color: var(--orange);
+    color: var(--light-grey);
 }
 
 textarea {
-    background-color: #33332e;
+    background-color: #1a242f;
     padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
     border-radius: 5px; /* Zaokrąglenie rogów */
+    width: 70%;
     resize: none; /* Wyłączenie opcji zmiany rozmiaru */
-    font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
-    color: white; /* Kolor tekstu */
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 input {
-    background-color: #33332e;
+    background-color: #1a242f;
     padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
     border-radius: 5px; /* Zaokrąglenie rogów */
     resize: none; /* Wyłączenie opcji zmiany rozmiaru */
     font-family: 'Arial', sans-serif; /* Dostosuj czcionkę według preferencji */
-    color: white; /* Kolor tekstu */
+}
+
+input::placeholder {
+    color: var(--light-grey); /* Możesz dostosować kolor według własnych preferencji */
 }
 
 input:focus {
     outline: none; /* Usunięcie domyślnego obramowania dla aktywnego stanu */
-    border-color: var(--orange); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
+    border-color: var(--light-grey); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
 }
 
 /* Dodatkowe style, np. dla aktywnego stanu textarea */
 textarea:focus {
     outline: none; /* Usunięcie domyślnego obramowania dla aktywnego stanu */
-    border-color: var(--orange); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
+    border-color: var(--light-grey); /* Zmiana koloru obramowania na pomarańczowy po kliknięciu */
 }
 
 /*Kolor tła w głównym kontenerze i ustawienie elastycznego rozkładu
@@ -72,27 +76,32 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*MENU START*/
 /*Kolor logotypu i przycisku rozwijającego menu*/
-.fa-video,
+.fa-wave-square,
 #toggle-icon {
-    color: var(--orange);
+    color: var(--light-grey);
 }
 
 /*Ustawienia dla responsywnego menu*/
 .menu {
-    position: relative;
+    background-color: #11121c;
     display: flex;
+    gap: 10px;
     flex-wrap: wrap;
-    justify-content: space-between;
-
 }
 
-/*Elementy menu domyślnie są ukryte*/
+
 .menu-item {
     width: 100%;
     padding: 16px;
+    margin-top: 5px;
     border-bottom: 1px #6d6d6d solid;
     text-align: center;
     display: none;
+}
+
+.menu-item a:hover {
+    color: var(--more-light-grey);
+    transition: .3s;
 }
 
 /*Po wciśnięciu przycisku elementy będą widoczne*/
@@ -105,7 +114,7 @@ i powinna zajmować większość dostępnej przestrzeni
 .menu-toggle {
     display: block;
     padding: 16px 32px;
-    font-size: 20px;
+    font-size: 23px;
 }
 
 /*MENU END*/
@@ -113,6 +122,8 @@ i powinna zajmować większość dostępnej przestrzeni
 /*FOOTER START*/
 /*Wyśrodkowanie stopki*/
 .footer {
+    background-color: #11121c;
+    margin-top: 1rem;
     padding: 8px;
     text-align: center;
 }
@@ -128,15 +139,37 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Usunięcie dekoracji elementów listy (kropki na początku)*/
 .movie-list {
+    display: flex;
     list-style-type: none;
+    flex-wrap: wrap; /* Allow items to wrap onto the next line */
 }
 
 /*Margines i ramka wokół pojedynczego filmu*/
 .movie-list-item {
     position: relative;
+    flex-basis: calc(50% - 16px); /* Set the width of each item to 50%, considering margin */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    margin-right: 16px; /* Add margin between items */
     margin-bottom: 16px;
     display: flex;
-    border: 1px #6d6d6d solid;
+    border: 1px var(--light-grey) solid;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.movie-list-item:last-child {
+    margin-right: 0; /* Remove margin for the last item in each row */
+}
+
+.movie-list-item:hover {
+    transform: scale(1.02);
+}
+
+/* Additional styling for inner elements as needed */
+.movie-list-item img {
+    height: 100%;
+    object-fit: cover;
 }
 
 /*Plakat - usuniecie paddingu*/
@@ -165,7 +198,7 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 
 .movie-list-item-title > a:hover {
-    color: var(--orange);
+    color: var(--light-grey);
     transition: 0.3s;
 }
 
@@ -184,7 +217,7 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 
 .movie-list-item-edit-and-delete a:hover {
-    color: var(--orange);
+    color: var(--light-grey);
     transition: 0.3s;
 }
 
@@ -202,21 +235,17 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 
 .search-tool {
-    position: absolute;
-    top: 10px;
-    right: 25rem;
+    margin-top: 15px;
 }
 
-.search-textarea {
-    padding-right: 40px; /* Dostosuj odstęp, aby pomieścić przycisk lupy */
-}
 
 .search-btn {
     position: absolute;
     top: 0;
     right: 0;
+    font-size: 18px;
     height: 100%;
-    padding: 8px;
+    padding: 10px;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -224,12 +253,12 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /* Stylowanie ikony lupy (możesz użyć dowolnej ikony) */
 .search-text-input {
-    height: 20px;
-    /* Dodatkowe style, jeśli potrzebujesz dostosować wygląd */
-    padding: 5px;
-    font-size: 14px;
+    padding-right: 120px;
 }
 
+.fa-search {
+    color: var(--light-grey);
+}
 
 /*Movie.html*/
 /*Informacje o filmie w jednym rzędzie z odstępem od jumbotrona*/
@@ -286,7 +315,7 @@ i powinna zajmować większość dostępnej przestrzeni
 
 .comment-user {
     margin-top: 1.2rem;
-    color: var(--orange);
+    color: var(--light-grey);
     font-size: 1.25rem;
 }
 
@@ -305,20 +334,32 @@ i powinna zajmować większość dostępnej przestrzeni
 
 .comment-submit-btn {
     padding: 10px;
-    background-color: var(--orange); /* Stosuje stały kolor do tła przycisku */
-    color: white; /* Ustawia kolor tekstu na biały */
+    background-color: var(--light-grey);
+    color: white;
     border: none;
     cursor: pointer;
+    border-radius: 6px; /* Optional: Add border-radius for rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
 }
 
-/*Wyśrodkowanie głosowania*/
+.comment-submit-btn:hover {
+    background-color: var(--more-light-grey);
+}
+
+
 .movie-rating-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     min-width: 200px;
+    background-color: var(--dark-grey);
+    padding: 15px; /* Increased padding for a bit more space */
+    border-radius: 10px; /* Slightly increased border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
 }
+
+
 
 /*Wyśrodkowanie tekstu Twoja ocena*/
 .movie-rating-form > p {
@@ -334,7 +375,7 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Styl dla przycisków z ocenami*/
 .movie-rating-button {
-    background-color: var(--orange);
+    background-color: var(--light-grey);
     border: 0;
     padding: 4px;
     font-size: 1.6rem;
@@ -359,8 +400,20 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Wyśrodkowanie trailera*/
 .movie-trailer {
-    display: block;
-    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 56.25%; /* Dla współczynnika proporcji 16:9, aby utrzymać aspekt responsywny */
+    overflow: hidden;
+    border: 1px var(--light-grey) solid;
+}
+
+.movie-trailer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .movie-title {
@@ -370,6 +423,14 @@ i powinna zajmować większość dostępnej przestrzeni
 
 /*Ramka dla boxu z głosowaniem*/
 .movie-section {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px var(--light-grey) solid;
+}
+
+.movie-section-buttons {
+    display: flex;
+    justify-content: space-evenly;
     margin-top: 16px;
     padding: 16px;
     border: 1px #6d6d6d solid;
@@ -400,13 +461,14 @@ i powinna zajmować większość dostępnej przestrzeni
 .list-border > li {
     position: relative;
     font-size: 1.3rem;
-    border: 1px #6d6d6d solid;
+    border: 1px var(--light-grey) solid;
+    margin-top: 2px;
     padding: 16px;
     text-align: center;
 }
 
 .list-border > li > a:hover {
-    color: var(--orange);
+    color: var(--light-grey);
     transition: 0.3s;
 }
 
@@ -426,7 +488,7 @@ i powinna zajmować większość dostępnej przestrzeni
 }
 
 .list-genres-options a:hover {
-    color: var(--orange);
+    color: var(--light-grey);
     transition: 0.3s;
 }
 
@@ -435,7 +497,7 @@ i powinna zajmować większość dostępnej przestrzeni
 
 
 button.delete-button {
-    color: var(--orange);
+    color: var(--light-grey);
     border: none;
     background-color: transparent;
     font-size: inherit; /* Dziedziczenie rozmiaru czcionki */
@@ -456,6 +518,7 @@ textarea {
 .mc-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 0 32px;
 }
 
@@ -468,8 +531,9 @@ textarea {
 
 .mc-form > button {
     margin-top: 16px;
+    padding: 20px;
     background-color: white;
-    color: var(--orange);
+    color: var(--light-grey);
     border: none;
 }
 
@@ -489,21 +553,23 @@ textarea {
 
     /*Kontener z logo powinien być rozciągnięty, a nawigacja po prawej stronie*/
     .menu-logo-container {
+        display: flex;
         flex: 1;
     }
 
     .notification-bar {
         text-align: center;
-        background-color: var(--orange);
+        background-color: var(--light-grey);
         padding: 8px 0;
     }
 
     /*Na dużym ekranie ograniczamy szerokość do 960px*/
-    .main-content,
-    .menu {
+    .main-content {
         align-self: center;
-        width: 960px;
+        width: 1260px;
     }
+
+
 }
 
 .mc-form > input,
@@ -515,8 +581,13 @@ textarea {
     padding: 8px;
 }
 
+.mc-form > input {
+    width: 70%;
+}
+
 .mc-form > button {
-    background-color: #33332e;
+    background-color: var(--more-light-grey);
+    width: 15%;
     padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
     border-radius: 5px; /* Zaokrąglenie rogów */
     resize: none; /* Wyłączenie opcji zmiany rozmiaru */
@@ -524,8 +595,13 @@ textarea {
     color: white; /* Kolor tekstu */
 }
 
+.mc-form > button:hover {
+    transition: .3s;
+    background-color: var(--light-grey);
+}
+
 .mc-form > select {
-    background-color: #33332e;
+    background-color: #1a242f;
     padding: 10px; /* Dodatkowe stylizacje, jak np. odstęp wewnętrzny */
     border-radius: 5px; /* Zaokrąglenie rogów */
     resize: none; /* Wyłączenie opcji zmiany rozmiaru */
@@ -546,7 +622,7 @@ textarea {
 
 /*Tekst nad formularzem*/
 .mc-form-message {
-    color: var(--orange);
+    color: var(--light-grey);
     text-align: center;
 }
 
@@ -556,8 +632,8 @@ textarea {
 }
 
 .alert.alert-success {
-    background-color: var(--orange);
-    border-color: var(--orange);
+    background-color: var(--light-grey);
+    border-color: var(--light-grey);
     color: black;
     padding: 10px;
     margin-top: 10px;
@@ -580,7 +656,7 @@ textarea {
     max-width: 800px; /* Set a maximum width for the error report */
     margin: 0 auto; /* Center the error report horizontally */
     padding: 20px;
-    background-color: rgba(61, 61, 61, 0.73); /* Add a background color for better contrast */
+    background-color: var(--grey); /* Add a background color for better contrast */
 }
 
 .report-details {
@@ -632,7 +708,7 @@ h1 {
 }
 
 .pagination a, .pagination span {
-    color: var(--orange);
+    color: var(--light-grey);
     padding: 8px 16px;
     text-decoration: none;
     margin: 0 4px;
@@ -641,20 +717,17 @@ h1 {
 }
 
 .pagination .active {
-    background-color: var(--orange);
+    background-color: var(--light-grey);
     color: #fff;
 }
 
 .pagination a:hover {
-    background-color: var(--orange);
+    background-color: var(--light-grey);
     color: #fff;
 }
 
 /*Responsive movie.html*/
 @media only screen and (min-width: 992px) {
-    .search-tool {
-
-    }
 
     /*Dodajemy rozkład elastyczny, elementy będą wyświetlane w jednym wierszu*/
     .movie {
@@ -675,23 +748,5 @@ h1 {
     }
 }
 
-@media only screen and (max-width: 768px) {
-    .search-tool {
-        right: 15rem;
-    }
 
-}
 
-@media only screen and (max-width: 566px) {
-    .search-tool {
-        right: 4rem;
-    }
-
-}
-
-@media only screen and (max-width: 468px) {
-    .search-tool {
-        right: 4rem;
-    }
-
-}

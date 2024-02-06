@@ -4,7 +4,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MovieSaveDto {
     private String title;
-    private String originalTitle;
     private String shortDescription;
     private String description;
     private String youtubeTrailerId;
@@ -30,13 +29,6 @@ public class MovieSaveDto {
         this.title = title;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
 
     public String getShortDescription() {
         return shortDescription;

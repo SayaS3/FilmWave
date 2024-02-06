@@ -48,7 +48,7 @@ public class CommentService {
     @Transactional
     public void deleteComment(Long id) throws NotFoundException {
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Comment not found for user, movie, and content combination."));
+                .orElseThrow(() -> new NotFoundException("Comment not found"));
         commentRepository.delete(comment);
     }
 

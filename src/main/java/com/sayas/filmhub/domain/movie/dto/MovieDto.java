@@ -5,24 +5,22 @@ import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 public class MovieDto {
     private Long id;
     private String title;
-    private String originalTitle;
     private String shortDescription;
     private String description;
     private String youtubeTrailerId;
     private Integer releaseYear;
     private String genre;
     @NotNull
-    private Boolean promoted = false;
+    private Boolean promoted;
     private String poster;
     private double avgRating;
     private int ratingCount;
 
     private boolean approved;
 
-    public MovieDto(Long id, String title, String originalTitle, String shortDescription, String description, String youtubeTrailerId, Integer releaseYear, String genre, Boolean promoted, String poster, double avgRating, int ratingCount, boolean approved) {
+    public MovieDto(Long id, String title,  String shortDescription, String description, String youtubeTrailerId, Integer releaseYear, String genre, Boolean promoted, String poster, double avgRating, int ratingCount, boolean approved) {
         this.id = id;
         this.title = title;
-        this.originalTitle = originalTitle;
         this.shortDescription = shortDescription;
         this.description = description;
         this.youtubeTrailerId = youtubeTrailerId;
@@ -70,13 +68,7 @@ public class MovieDto {
         this.title = title;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
 
     public String getShortDescription() {
         return shortDescription;

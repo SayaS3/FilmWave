@@ -7,7 +7,7 @@
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
     <!-- Ustawiamy tytuł -->
-    <title th:text="|${movie.title} - FilmHub|">Title of the Movie - FilmHub</title>
+    <title th:text="|${movie.title} - FilmHub|">Title of the Movie - FilmWave</title>
 </head>
 <body>
 
@@ -32,7 +32,6 @@
                         <a href="#" th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
                     </p>
                     <h2 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h2>
-                    <p class="movie-summary-original-title" th:text="${movie.originalTitle}">Lord of the Rings</p>
                     <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
                     <!-- Set link to the genre page, e.g., /genre/fantasy -->
                     <p class="movie-summary-item">Genre: <a href="#"
@@ -45,7 +44,7 @@
                 </div>
             </div>
             <!-- Rating -->
-            <div class="movie-rating-container movie-section">
+            <div class="movie-rating-container">
                 <h2 class="movie-section-heading">Rating</h2>
                 <!-- If no votes have been cast -->
                 <p th:unless="${movie.ratingCount}">No votes</p>
@@ -80,10 +79,10 @@
             </div>
         </section>
         <!-- Trailer -->
-        <section class="movie-trailer-container movie-section">
+        <section class="movie-trailer-container movie-trailer">
             <h2 class="movie-section-heading">Trailer</h2>
             <!-- Set the movie trailer URL -->
-            <iframe width="560" height="315" class="movie-trailer"
+            <iframe width="560" height="315"
                     src="https://www.youtube.com/embed/V75dMMIW2B4"
                     th:src="|https://www.youtube.com/embed/${movie.youtubeTrailerId}|"
                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -106,7 +105,8 @@
             <form action="/add-comment" method="post" th:if="${#authorization.expression('isAuthenticated()')}"
                   class="comment-form">
                 <label>
-<textarea name="content" rows="4" placeholder="Add a comment" class="comment-textarea" maxlength="255"
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" hidden>
+            <textarea name="content" rows="4" placeholder="Add a comment" class="comment-textarea" maxlength="255"
           required></textarea>
                 </label>
                 <input type="hidden" name="movieId" th:value="${movie.id}"/>
@@ -164,6 +164,7 @@
                   sec:authorize="isAuthenticated()"
                   class="report-error-form">
                 <input type="hidden" name="movieId" th:value="${movie.id}">
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" hidden>
                 <label>
             <textarea name="errorDescription" rows="4" placeholder="Describe the error" class="comment-textarea"
                       maxlength="255" required></textarea>
