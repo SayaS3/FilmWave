@@ -1,4 +1,4 @@
-FilmHub is a dynamic web application crafted using Java Spring, Thymeleaf, and Spring Security. This platform offers users an immersive experience to discover, register, log in, and rate movies effortlessly.
+FilmWave is a dynamic web application crafted using Java Spring, Thymeleaf, and Spring Security. This platform offers users an immersive experience to discover, register, log in, and rate movies effortlessly.
 
 ## Key Features
 
@@ -12,8 +12,8 @@ FilmHub is a dynamic web application crafted using Java Spring, Thymeleaf, and S
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/SayaS3/FilmHub.git`
-2. Navigate to the project directory: `cd MovieClub`
+1. Clone the repository: `git clone https://github.com/SayaS3/FilmWave.git`
+2. Navigate to the project directory: `cd FilmWave`
 3. Choose the appropriate profile:
    - Development: `./mvnw spring-boot:run -Dspring.profiles.active=dev`
    - Production: `./mvnw spring-boot:run -Dspring.profiles.active=prod`
@@ -45,4 +45,4 @@ To run the FilmHub application locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/SayaS3/filmhub.git
+   git clone https://github.com/SayaS3/FilmWave.git
