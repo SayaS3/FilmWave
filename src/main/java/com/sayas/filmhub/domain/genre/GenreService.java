@@ -22,15 +22,12 @@ public class GenreService {
         this.movieRepository = movieRepository;
     }
 
-    public Optional<GenreDto> findGenreByName(String name) {
-        return genreRepository.findByNameIgnoreCase(name)
-                .map(GenreDtoMapper::map);
-    }
     public List<GenreDto> findAllGenres() {
         return StreamSupport.stream(genreRepository.findAll().spliterator(), false)
                 .map(GenreDtoMapper::map)
                 .toList();
     }
+
     @Transactional
     public void addGenre(GenreDto genre) {
         Genre genreToSave = new Genre();
@@ -38,16 +35,14 @@ public class GenreService {
         genreToSave.setDescription(genre.getDescription());
         genreRepository.save(genreToSave);
     }
+
     @Transactional
     public void editGenre(GenreDto genreToEdit) {
-        Optional<Genre> genreToSave = genreRepository.findById(genreToEdit.getId());
-        if(genreToSave.isPresent()){
-            Genre genre = genreToSave.get();
+        genreRepository.findById(genreToEdit.getId()).ifPresent(genre -> {
             genre.setName(genreToEdit.getName());
             genre.setDescription(genreToEdit.getDescription());
             genreRepository.save(genre);
-        }
-
+        });
     }
 
     public Optional<GenreDto> findGenreById(Long id) {
@@ -55,22 +50,16 @@ public class GenreService {
                 .map(GenreDtoMapper::map);
     }
 
-    public Optional<GenreDto> getGenreById(Long id) {
-        return genreRepository.findById(id)
-                .map(GenreDtoMapper::map);
-    }
-@Transactional
+    @Transactional
     public void deleteGenreById(Long id) {
-    Optional<Genre> genreToDelete = genreRepository.findById(id);
-    if (genreToDelete.isPresent()) {
-        Genre genre = genreToDelete.get();
-        List<Movie> moviesWithThatGenre = movieRepository.findAllByGenre(genre);
-        // Oznaczanie filmów jako bez gatunku
-        for (Movie movie : moviesWithThatGenre) {
-            movie.setGenre(null);
-        }
-        movieRepository.saveAll(moviesWithThatGenre);
-        genreRepository.delete(genre);
-    }
+        genreRepository.findById(id).ifPresent(genre -> {
+            List<Movie> moviesWithThatGenre = movieRepository.findAllByGenre(genre);
+            for (Movie movie : moviesWithThatGenre) {
+                movie.setGenre(null);
+            }
+            movieRepository.saveAll(moviesWithThatGenre);
+            genreRepository.delete(genre);
+        });
+
     }
 }

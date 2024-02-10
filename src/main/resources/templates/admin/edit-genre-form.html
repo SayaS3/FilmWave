@@ -9,7 +9,7 @@
 <body>
 <main class="main-content" layout:fragment="content">
   <h2 class="list-heading">Edit a genre</h2>
-  <form action="#" th:action="@{|/admin/edit-genre/${genre.id}|}" th:method="put" class="mc-form" th:object="${genre}">
+  <form action="#" th:action="@{|/admin/genre/${genre.id}|}" th:method="put" class="mc-form" th:object="${genre}">
     <label for="genreName">Name</label>
     <input type="text" id="genreName" placeholder="e.g., Horror" th:field="*{name}">
     <label for="movieShortDescription">Description - max 500 characters</label>

@@ -3,18 +3,19 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-  h2:
-    console:
-      enabled: false
+  liquibase:
+        contexts: prod
   datasource:
-    url: jdbc:mysql://localhost:3306/movieHub?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/FilmWave?createDatabaseIfNotExist=true
     username: root
     password: bazahaslo
-  liquibase:
-    contexts: prod
   web:
     resources:
       static-locations: classpath:/static/,file:/Users/lukas/uploads
 app:
   storage:
     location: uploads
+  jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect

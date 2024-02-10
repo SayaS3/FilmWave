@@ -3,8 +3,12 @@ package com.sayas.filmhub.domain.errorreport;
 import com.sayas.filmhub.domain.movie.Movie;
 import com.sayas.filmhub.domain.user.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "error_reports")
 public class ErrorReport {
 
@@ -20,35 +24,5 @@ public class ErrorReport {
 
     private String errorDescription;
 
-    public Long getId() {
-        return id;
-    }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
 }

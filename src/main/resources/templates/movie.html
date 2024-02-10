@@ -29,7 +29,7 @@
                 <!-- Movie information -->
                 <div class="movie-summary-info">
                     <p sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')">
-                        <a href="#" th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+                        <a href="#" th:href="@{|/admin/movie/${movie.id}|}">Edit</a>
                     </p>
                     <h2 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h2>
                     <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>

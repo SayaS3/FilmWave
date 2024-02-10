@@ -29,9 +29,9 @@
         <div class="movie-list-item-edit-and-delete"
              th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'') or hasRole(''ROLE_EDITOR'')')}">
           <a
-                  th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+                  th:href="@{|/admin/movie/${movie.id}|}">Edit</a>
 
-          <form th:action="@{|/admin/delete-movie/${movie.id}|}" th:method="delete">
+          <form th:action="@{|/admin/movie/${movie.id}|}" th:method="delete">
             <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?');"
                     class="delete-button">Delete
             </button>

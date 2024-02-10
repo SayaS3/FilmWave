@@ -9,7 +9,7 @@
 <body>
 <main class="main-content" layout:fragment="content">
     <h2 class="list-heading">Edit Movie</h2>
-    <form action="#" th:action="@{|/admin/edit-movie/${movie.id}|}" th:method="put" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
+    <form action="#" th:action="@{|/admin/movie/${movie.id}|}" th:method="put" enctype="multipart/form-data" class="mc-form" th:object="${movie}">
         <input type="hidden" id="id" th:field="*{id}" th:value="${movie.id}">
         <label for="title">Title</label>
         <input type="text" id="title" placeholder="Sample title" th:field="*{title}" th:value="${movie.title}" maxlength="100">

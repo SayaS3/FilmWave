@@ -2,6 +2,7 @@ package com.sayas.filmhub.domain.user;
 
 import com.sayas.filmhub.domain.user.dto.UserCredentialsDto;
 import com.sayas.filmhub.domain.user.dto.UserRegistrationDto;
+import jakarta.persistence.EntityNotFoundException;
 import javassist.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +50,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<UserCredentialsDto> getuserByName(String username) {
+    public Optional<UserCredentialsDto> getUserByName(String username) {
         return userRepository.findByUsername(username)
                 .map(UserCredentialsDtoMapper::map);
     }
@@ -60,7 +61,7 @@ public class UserService {
             User user = userWithShadowBan.get();
             return user.isShadowBanned();
         } else {
-            throw new NotFoundException("User not found with ID: " + userId);
+            throw new EntityNotFoundException("User not found with ID: " + userId);
         }
     }
 
@@ -70,38 +71,30 @@ public class UserService {
     }
 
     @Transactional
-    public void shadowBan(String userName) throws NotFoundException {
-        Optional<User> userToFind = userRepository.findByUsername(userName);
-        if (userToFind.isPresent()) {
-            User user = userToFind.get();
-            user.setShadowBanned(true);
-            userRepository.save(user);
-        } else {
-            throw new NotFoundException("User not found.");
-        }
+    public void shadowBan(String userName) {
+        userRepository.findByUsername(userName).ifPresentOrElse(user -> {
+                    user.setShadowBanned(true);
+                },
+                () -> {
+                    throw new EntityNotFoundException("User not found.");
+                }
+        );
     }
 
     @Transactional
-    public void unban(String userName) throws NotFoundException {
-        Optional<User> userToFind = userRepository.findByUsername(userName);
-        if (userToFind.isPresent()) {
-            User user = userToFind.get();
+    public void unban(String userName){
+        userRepository.findByUsername(userName).ifPresentOrElse(user -> {
             user.setShadowBanned(false);
-            userRepository.save(user);
-        } else {
-            throw new NotFoundException("User not found.");
-        }
+        }, () -> {
+            throw new EntityNotFoundException("User not found.");
+        });
     }
 
     @Transactional
-    public void deleteUser(String userName) throws NotFoundException {
-        Optional<User> userToFind = userRepository.findByUsername(userName);
-        if (userToFind.isPresent()) {
-            User user = userToFind.get();
-            userRepository.delete(user);
-        } else {
-            throw new NotFoundException("User not found.");
-        }
+    public void deleteUser(String userName){
+        userRepository.findByUsername(userName).ifPresentOrElse(userRepository::delete, () -> {
+            throw new EntityNotFoundException("User not found.");
+        });
     }
 
     public boolean existsByEmail(String email) {

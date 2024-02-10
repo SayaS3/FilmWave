@@ -100,15 +100,20 @@ textarea:focus {
 .expanded > .menu-item {
     display: block;
 }
-
+.menu-logo-container{
+    padding-top: 16px;
+    padding-left: 15px;
+}
 /*padding dla elementów menu*/
 .menu-logo-container,
 .menu-toggle {
     display: block;
-    padding: 16px 32px;
     font-size: 23px;
-}
 
+}
+.menu-toggle {
+    padding: 16px;
+}
 /*MENU END*/
 
 /*FOOTER START*/

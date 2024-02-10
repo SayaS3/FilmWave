@@ -47,7 +47,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie/{id}")
-    public String getMovie(@PathVariable long id,
+    public String getMovie(@PathVariable String id,
                            Model model,
                            Authentication authentication) {
 
@@ -59,7 +59,7 @@ public class MovieController {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 
-            List<CommentDto> allComments = commentService.getCommentsByMovie(id);
+            List<CommentDto> allComments = commentService.getCommentsByMovie(movieId);
 
             String currentUser = (authentication != null) ? authentication.getName() : null;
 
@@ -78,14 +78,13 @@ public class MovieController {
             model.addAttribute("comments", filteredComments);
 
             if (authentication != null && authentication.isAuthenticated()) {
-                Integer rating = ratingService.getUserRatingForMovie(currentUser, id).orElse(0);
+                Integer rating = ratingService.getUserRatingForMovie(currentUser, movieId).orElse(0);
                 model.addAttribute("userRating", rating);
             }
             return "movie";
         } catch (NumberFormatException e) {
-            // Obsługa błędu, gdy identyfikator nie jest liczbą
             model.addAttribute("errorMessage", "Invalid movie ID");
-            return "error/404"; // Możesz utworzyć stronę z informacją o błędzie
+            return "error/404";
         }
     }
 

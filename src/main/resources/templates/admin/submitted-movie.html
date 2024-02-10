@@ -26,7 +26,7 @@
                 <!-- Movie information -->
                 <div class="movie-summary-info">
                     <p sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EDITOR')">
-                        <a href="#" th:href="@{|/admin/edit-movie/${movie.id}|}">Edit</a>
+                        <a href="#" th:href="@{|/admin/movie/${movie.id}|}">Edit</a>
                     </p>
                     <h2 class="movie-summary-title" th:text="${movie.title}">The Lord of the Rings</h2>
                     <p class="movie-summary-item" th:text="|Year: ${movie.releaseYear}|">Year: 2001</p>
@@ -62,7 +62,7 @@
                 Donec lacinia congue felis in faucibus.</p>
         </section>
         <section class="movie-section-buttons">
-            <form th:action="@{|/admin/delete-movie/${movie.id}|}" th:method="delete">
+            <form th:action="@{|/admin/movie/${movie.id}|}" th:method="delete">
                 <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?');"
                         class="delete-button">Delete
                 </button>

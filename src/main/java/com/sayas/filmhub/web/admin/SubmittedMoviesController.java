@@ -8,23 +8,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Controller
-
+@RequestMapping("/admin")
 public class SubmittedMoviesController {
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/admin/submitted-movies")
+    @GetMapping("/submitted-movies")
     String getMoviesSubmittedByUsers(Model model){
        List<MovieDto> movies = movieService.findMoviesByNotApproved();
        model.addAttribute("movies",movies);
         return "/admin/submitted-movies-listing";
     }
-    @GetMapping("/admin/submit-movie/{id}")
+    @GetMapping("/submit-movie/{id}")
     public String getSubmittedMovie(@PathVariable long id,
                                     Model model) {
         MovieDto movie = movieService.findMovieById(id)

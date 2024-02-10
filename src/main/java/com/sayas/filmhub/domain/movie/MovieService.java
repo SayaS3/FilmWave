@@ -49,7 +49,6 @@ public class MovieService {
     public void addMovie(MovieSaveDto movieToSave) {
         Movie movie = new Movie();
         movie.setTitle(movieToSave.getTitle());
-
         movie.setPromoted(movieToSave.isPromoted());
         movie.setReleaseYear(movieToSave.getReleaseYear());
         movie.setShortDescription(movieToSave.getShortDescription());
@@ -69,7 +68,6 @@ public class MovieService {
     public void submitMovie(MovieSaveDto movieToSave) {
         Movie movie = new Movie();
         movie.setTitle(movieToSave.getTitle());
-
         movie.setPromoted(false);
         movie.setReleaseYear(movieToSave.getReleaseYear());
         movie.setShortDescription(movieToSave.getShortDescription());
@@ -92,37 +90,30 @@ public class MovieService {
 
     @Transactional
     public void editMovie(Long id, MovieSaveDto movieChanged) {
-        Optional<Movie> optionalMovie = movieRepository.findById(id);
-        if (optionalMovie.isPresent()) {
-            Movie movie = optionalMovie.get();
-            Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
-                    .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
-            movie.setTitle(movieChanged.getTitle());
-
-            movie.setShortDescription(movieChanged.getShortDescription());
-            movie.setDescription(movieChanged.getDescription());
-            movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
-            if (movieChanged.getPoster() != null && !movieChanged.getPoster().isEmpty()) {
-                String savedFileName = fileStorageService.saveImage(movieChanged.getPoster());
-                movie.setPoster(savedFileName);
-            }
-            movie.setGenre(genre);
-            movie.setReleaseYear(movieChanged.getReleaseYear());
-            movieRepository.save(movie);
-        } else {
-            throw new RuntimeException("Movie not found with id: " + id);
-        }
+        movieRepository.findById(id).ifPresentOrElse(movie -> {
+                    Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
+                            .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
+                    movie.setTitle(movieChanged.getTitle());
+                    movie.setShortDescription(movieChanged.getShortDescription());
+                    movie.setDescription(movieChanged.getDescription());
+                    movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
+                    if (movieChanged.getPoster() != null && !movieChanged.getPoster().isEmpty()) {
+                        String savedFileName = fileStorageService.saveImage(movieChanged.getPoster());
+                        movie.setPoster(savedFileName);
+                    }
+                    movie.setGenre(genre);
+                    movie.setReleaseYear(movieChanged.getReleaseYear());
+                }, () -> {
+                    throw new RuntimeException("Movie not found with id: " + id);
+        });
     }
 
     @Transactional
     public void approveMovie(Long id, MovieSaveDto movieChanged) {
-        Optional<Movie> optionalMovie = movieRepository.findById(id);
-        if (optionalMovie.isPresent()) {
-            Movie movie = optionalMovie.get();
+        movieRepository.findById(id).ifPresentOrElse(movie -> {
             Genre genre = genreRepository.findByNameIgnoreCase(movieChanged.getGenre())
                     .orElseThrow(() -> new RuntimeException("Genre not found: " + movieChanged.getGenre()));
             movie.setTitle(movieChanged.getTitle());
-
             movie.setShortDescription(movieChanged.getShortDescription());
             movie.setDescription(movieChanged.getDescription());
             movie.setYoutubeTrailerId(movieChanged.getYoutubeTrailerId());
@@ -134,9 +125,9 @@ public class MovieService {
             movie.setGenre(genre);
             movie.setReleaseYear(movieChanged.getReleaseYear());
             movieRepository.save(movie);
-        } else {
+        }, () -> {
             throw new RuntimeException("Movie not found with id: " + id);
-        }
+        });
     }
 
     @Transactional

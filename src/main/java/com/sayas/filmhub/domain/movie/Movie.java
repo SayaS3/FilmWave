@@ -4,12 +4,16 @@ package com.sayas.filmhub.domain.movie;
 import com.sayas.filmhub.domain.genre.Genre;
 import com.sayas.filmhub.domain.rating.Rating;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
+@Getter
+@Setter
 public class Movie {
 
     @Id
@@ -20,100 +24,19 @@ public class Movie {
     private String description;
     private String youtubeTrailerId;
     private Integer releaseYear;
+
     @ManyToOne
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
+
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Rating> ratings = new HashSet<>();
-
     private boolean promoted;
+
     private String poster;
+
+    @Column(name = "approved")
     private boolean approved;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getYoutubeTrailerId() {
-        return youtubeTrailerId;
-    }
-
-    public void setYoutubeTrailerId(String youtubeTrailerId) {
-        this.youtubeTrailerId = youtubeTrailerId;
-    }
-
-    public Integer getReleaseYear() {
-        return releaseYear;
-    }
-
-    public void setReleaseYear(Integer releaseYear) {
-        this.releaseYear = releaseYear;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public boolean isPromoted() {
-        return promoted;
-    }
-
-    public void setPromoted(boolean promoted) {
-        this.promoted = promoted;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public Set<Rating> getRatings() {
-        return ratings;
-    }
 
 
 }
