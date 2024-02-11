@@ -40,12 +40,12 @@ public class UsersController {
         return "redirect:/admin/users";
     }
     @PutMapping("/unban/{userName}")
-    public String unBan(@PathVariable String userName) throws NotFoundException {
+    public String unBan(@PathVariable String userName) {
         userService.unban(userName);
         return "redirect:/admin/users";
     }
     @DeleteMapping("/user/{userName}")
-    public String deleteUser(@PathVariable String userName) throws NotFoundException {
+    public String deleteUser(@PathVariable String userName){
         userService.deleteUser(userName);
         return "redirect:/admin/users";
     }

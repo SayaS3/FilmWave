@@ -39,7 +39,6 @@ public class UserProfileController {
     @GetMapping("/user-profile")
     public String getUserProfile(Model model) {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
         return userService.getUserByName(currentUsername)
                 .map(user -> {
                     List<Rating> userRatings = ratingService.findByUsername(user);

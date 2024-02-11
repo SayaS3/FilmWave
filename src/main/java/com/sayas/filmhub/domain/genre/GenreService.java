@@ -23,7 +23,7 @@ public class GenreService {
     }
 
     public List<GenreDto> findAllGenres() {
-        return StreamSupport.stream(genreRepository.findAll().spliterator(), false)
+        return genreRepository.findAll().stream()
                 .map(GenreDtoMapper::map)
                 .toList();
     }
