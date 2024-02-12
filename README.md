@@ -46,3 +46,11 @@ To run the FilmHub application locally, follow these steps:
 
    ```bash
    git clone https://github.com/SayaS3/FilmWave.git
+
+
+## SCREENSHOTS
+
+
+![screen1](https://github.com/SayaS3/FilmWave/assets/122474783/55fbd6de-0b47-44f3-872a-868a3cdf313f)
+![screen2](https://github.com/SayaS3/FilmWave/assets/122474783/b4076361-7553-4b99-8cc3-87a782257818)
+![screen3](https://github.com/SayaS3/FilmWave/assets/122474783/08b550ad-689d-4025-b3af-af885630ef20)   
