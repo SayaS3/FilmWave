@@ -8,6 +8,7 @@ import java.util.Optional;
 
 
 public interface CommentRepository extends CrudRepository<Comment, Long> {
+
     void deleteByMovie(Movie movie);
     List<Comment> findByMovieId(Long movieId);
     Optional<Comment> findById(Long id);
